@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+<!-- home page goes here-->
+<!-- a 3 column grid-->
+ <div class="three-column">
+    {% for base in results %}
+    
+    <div class="w3-card-4">
+        <!-- the name then the iamge -->
+         <h1>{{base[6] }}</h1>
+    </div>
+    {% endfor %}
+ </div>
+{% endblock %}
