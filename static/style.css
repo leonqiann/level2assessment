@@ -8,3 +8,27 @@
 nav {
     font-size: 50px;
 }
+
+.order-now {
+    background-color: #C41D1D;
+    border-radius: 20%;
+    display: inline-block;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+    font-size: 50px;
+    padding-top: -20px;
+}
+.spicynoodleknockout {
+    text-align: center;
+    float: left;
+    font-size: 100px; 
+}
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.idk {
+    width: 500px;
+    height: auto;
+    float: right;
+}

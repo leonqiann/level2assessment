@@ -2,13 +2,22 @@
 {% block body %}
 <!-- home page goes here-->
 <!-- a 3 column grid-->
- <div class="three-column">
-    {% for base in results %}
-    
-    <div class="w3-card-4">
+ <div class="two-column">
         <!-- the name then the iamge -->
-         <h1>{{base[6] }}</h1>
-    </div>
-    {% endfor %}
+         <div class="spicynoodleknockout">
+            <h1>MOUTHWATERING <br>FIERY SPICY NOODLE <br> KNOCKOUT</h1>
+         </div>
+         <div class="idk">
+            <img src="static/images/spicynoodleknockout.png" alt="spicynoodleknockout" width="100%">
+         </div>
+         <div class="order-now">
+            <p>ORDER NOW</p>
+         </div>
+         <p>Savor our Mouthwatering Fiery Spicy Noodle Knockout, <br>
+            a bold and flavorful dish packed with intense spices and<br> 
+            perfectly cooked noodles. With a fiery blend of chili <br>
+            and seasonings, it delivers a delicious, heat-packed punch. <br>
+            Perfect for spice lovers seeking a thrilling, savory <br>
+            experience that keeps you coming back for more.</p>
  </div>
 {% endblock %}
