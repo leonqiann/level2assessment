@@ -6,20 +6,27 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <title>Wok This Way</title>
+    <title>Wok This Way</title> 
 </head>
 <body class="w3-container">
     <!-- shared header bar-->
-    <header class="w3-container w3-padding-32">
-    </header>
+    
+    
     <!-- shared nav bar-->
-     <nav class="w3-bar w3-red">
+    <header class="site-header">
+     <nav class="w3-bar w3-red" width="80%">
         <a href="/" class="w3-bar-item w3-button"></a> <img src="../static/images/wokthisway.png" alt="wokthisway"></a>
         <a href="/" class="w3-bar-item w3-button"></a> Home
         <a href="/" class="w3-bar-item w3-button"></a> Order Now
         <a href="/" class="w3-bar-item w3-button"></a> Cart
         <a href="/" class="w3-bar-item w3-button"></a> <img src="static/images/loginimg.png" alt="login">
      </nav>
+    </header>
+     <footer class="w3-bar w3-red">
+        <a href="/" class="w3-bar-item w3-button"></a> About us
+        <a href="/" class="w3-bar-item w3-button"></a> Contact us
+        <a href="/" class="w3-bar-item w3-button"></a> Nutrition
+     </footer>
     {% block body %}
     {% endblock %}
 </body>

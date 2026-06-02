@@ -7,6 +7,7 @@
 
 nav {
     font-size: 50px;
+    width: 100%;
 }
 
 .order-now {
@@ -28,7 +29,24 @@ nav {
     grid-template-columns: 1fr 1fr;
 }
 .idk {
-    width: 500px;
+    width: 60%;
     height: auto;
     float: right;
+}
+footer {
+    font-size: 20px;
+
+}
+body {   
+    background-color: #E4C443;
+    margin: 0px !important ;
+    padding: 0px;
+}
+.site-header {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+.w3-container {
+    margin: 0 !important;
 }
