@@ -8,6 +8,7 @@
 nav {
     font-size: 50px;
     width: 100%;
+    margin-bottom: 0cap;
 }
 
 .order-now {
@@ -17,7 +18,8 @@ nav {
     padding-left: 0.5%;
     padding-right: 0.5%;
     font-size: 50px;
-    padding-top: -20px;
+    text-align: center;
+    
 }
 .spicynoodleknockout {
     text-align: center;
@@ -27,6 +29,13 @@ nav {
 .two-column {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-row: 2/3;
+    position: relative;
+    top: -80%;
+}
+.three-row {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
 }
 .idk {
     width: 60%;
@@ -35,18 +44,14 @@ nav {
 }
 footer {
     font-size: 20px;
-
+    margin-bottom: 10%;
 }
 body {   
     background-color: #E4C443;
-    margin: 0px !important ;
-    padding: 0px;
+    margin: 0 !important ;
+    padding: 0;
 }
 .site-header {
     width: 100%;
     box-sizing: border-box;
-    margin: 0;
-}
-.w3-container {
-    margin: 0 !important;
 }
