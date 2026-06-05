@@ -25,7 +25,7 @@ def query_db(query, args=(), one=False):
 
 @app.route('/')
 def home():
-    #home page just the mouthwatering spicy noodles 
+    #home page just the mouthwatering spicy noodles
     sql = "SELECT topping_name, topping_price, topping_image, side_name, side_price, side_image, base_name, base_price, base_image FROM customer_order LEFT JOIN sides ON customer_order.side_id = sides.id  LEFT JOIN topping ON customer_order.topping_id = topping.id LEFT JOIN base ON customer_order.base_id = base.id"
     results = query_db(sql)
     return render_template("home.html", results=results)
