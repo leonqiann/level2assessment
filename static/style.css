@@ -9,23 +9,19 @@
 nav {
     font-size: 50px;
     width: 100%;
-
-
 }
 
 
 .order-now {
     background-color: #C41D1D;
     border-radius: 20%;
-    display: inline-block;
-    padding: 0%;
     font-size: 30px;
     text-align: center;
     grid-column: 1;
     grid-row: 2;
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-bottom: 20%;
+    justify-self: center;
+    align-self: center;
+    padding: 2%;
 }
 .homeheader {
     text-align: center;
@@ -50,6 +46,7 @@ nav {
     height: auto;
     float: right;
     margin-top: 5%;
+    margin-left: 30%;
 }
 footer {
     font-size: 20px;
@@ -69,10 +66,10 @@ body {
 .phome {
     text-align: center;
     font-size: larger;
-    margin-right: 50%;
+    
 }
 .two-column > :nth-child(3),
 .two-column > :nth-child(4)
  {
-      font-size: ;
+      font-size: 25px;
 }
