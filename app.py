@@ -30,6 +30,26 @@ def home():
     results = query_db(sql)
     return render_template("home.html", results=results)
 
+@app.route('/order')
+def order():
+    return render_template("order.html")
+
+@app.route('/cart')
+def cart():
+    return render_template("cart.html")
+
+@app.route('/login')
+def login():
+    return render_template("login.html")
+
+@app.route('/about')
+def about():
+    return render_template("about.html")
+
+@app.route('/contact')
+def contact():
+    return render_template("contact.html")
+
 @app.route("/base/<int:id>")
 def bike(id):
     #just one noodle based on the id 
