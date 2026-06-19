@@ -32,7 +32,8 @@ def home():
 
 @app.route('/order')
 def order():
-    return render_template("order.html")
+    sql = "SELECT "
+    return render_template("order.html", results=results)
 
 @app.route('/cart')
 def cart():

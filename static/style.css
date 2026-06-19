@@ -79,3 +79,8 @@ body {
 .two-column > :nth-child(3) {
     font-size: 45px;
 }
+.five-column {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+
+}
