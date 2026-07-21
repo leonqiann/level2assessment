@@ -1,7 +1,7 @@
 from flask import Flask, g, render_template
 import sqlite3
 
-DATABASE = 'wokthisway.db'
+DATABASE = 'wokthiswayimproved.db'
 
 app = Flask(__name__)
 
@@ -26,13 +26,14 @@ def query_db(query, args=(), one=False):
 @app.route('/')
 def home():
     #home page just the mouthwatering spicy noodles
-    sql = "SELECT topping_name, topping_price, topping_image, side_name, side_price, side_image, base_name, base_price, base_image FROM customer_order LEFT JOIN sides ON customer_order.side_id = sides.id  LEFT JOIN topping ON customer_order.topping_id = topping.id LEFT JOIN base ON customer_order.base_id = base.id"
+    sql = "SELECT orderbase_id, ordertopping_id, orderside_id FROM customer_order LEFT JOIN topping ON customer_order.ordertopping_id = topping.id LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
     results = query_db(sql)
     return render_template("home.html", results=results)
 
 @app.route('/order')
 def order():
-    sql = "SELECT "
+    sql = "SELECT orderbase_id, ordertopping_id, orderside_id FROM customer_order LEFT JOIN topping ON customer_order.ordertopping_id = topping.id LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
+    results = query_db(sql)
     return render_template("order.html", results=results)
 
 @app.route('/cart')
