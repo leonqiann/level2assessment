@@ -5,8 +5,11 @@
 <div class="five-column">
     {% for baseimage in results %}
     <img src="{{ baseimage[1]}}" alt="">
-
+    <p>{{baseimage[0]}}</p>
 {% endfor %}
+
+
 </div>
+
 
 {% endblock %}

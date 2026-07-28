@@ -83,17 +83,28 @@ body {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
     margin-top: 5%;
+    margin-left: 5.5%;
+
 }
 
-.five-column > :nth-child(1) {
-    margin-top: -12%;
-    padding-bottom: 85%;
-}
-
-.five-column > :nth-child(2) {
-    padding-bottom: 88%;
-}
-
-.five-column > * {
+.five-column > :nth-child(1),
+.five-column > :nth-child(3),
+.five-column > :nth-child(5),
+.five-column > :nth-child(7),
+.five-column > :nth-child(9) {
     background-color: #FFCC00;
+    padding: 5% 5% 85% 5%;
+    column-gap: -10%;
+}
+
+
+.five-column > :nth-child(2),
+.five-column > :nth-child(4),
+.five-column > :nth-child(6),
+.five-column > :nth-child(8),
+.five-column > :nth-child(10) {
+    grid-row: 1/2;
+}
+.five-column > :nth-child(2) {
+    width: 50%;
 }
