@@ -84,3 +84,16 @@ body {
     grid-template-columns: auto auto auto auto auto;
     margin-top: 5%;
 }
+
+.five-column > :nth-child(1) {
+    margin-top: -12%;
+    padding-bottom: 85%;
+}
+
+.five-column > :nth-child(2) {
+    padding-bottom: 88%;
+}
+
+.five-column > * {
+    background-color: #FFCC00;
+}

@@ -32,7 +32,7 @@ def home():
 
 @app.route('/order')
 def order():
-    sql = "SELECT orderbase_id, ordertopping_id, orderside_id FROM customer_order LEFT JOIN topping ON customer_order.ordertopping_id = topping.id LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
+    sql = "SELECT base_name, base_image FROM base "
     results = query_db(sql)
     return render_template("order.html", results=results)
 
@@ -53,9 +53,9 @@ def contact():
     return render_template("contact.html")
 
 @app.route("/base/<int:id>")
-def bike(id):
+def baseimage(id):
     #just one noodle based on the id 
-    sql = "SELECT base_name, base_price, base_image FROM customer_order LEFT JOIN topping ON customer_order.topping_id = topping.id LEFT JOIN base ON customer_order.base_id = base.id LEFT JOIN sides ON customer_order.side_id = sides.id WHERE base_name = 'MOUTHWATERING FIERY SPICY NOODLES KNOCKOUT'"
+    sql = "SELECT base_image from base"
     result=query_db(sql,(id,),True)
     return str(result)
 
