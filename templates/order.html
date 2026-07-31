@@ -4,8 +4,12 @@
 <!-- five column grid for layouit of the menu-->
 <div class="five-column">
     {% for baseimage in results %}
+    <div class="card">
     <img src="{{ baseimage[1]}}" alt="">
     <p>{{baseimage[0]}}</p>
+    	<a href="/cart" class="button-class">
+      Add to order</a>
+    </div>
 {% endfor %}
 
 

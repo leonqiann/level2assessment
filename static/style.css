@@ -23,6 +23,9 @@ nav {
     align-self: center;
     padding: 2%;
 }
+.order-now a {
+    text-decoration: none;
+}
 .homeheader {
     text-align: center;
     grid-row: 1;
@@ -81,30 +84,46 @@ body {
 }
 .five-column {
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
-    margin-top: 5%;
-    margin-left: 5.5%;
-
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    margin: 5%;
+    gap: 5%;
 }
 
-.five-column > :nth-child(1),
-.five-column > :nth-child(3),
-.five-column > :nth-child(5),
-.five-column > :nth-child(7),
-.five-column > :nth-child(9) {
-    background-color: #FFCC00;
-    padding: 5% 5% 85% 5%;
-    column-gap: -10%;
+.five-column > :nth-child(1) {
+    overflow-wrap: break-word;
+    text-align: center;
+    max-width: 1fr;
 }
 
-
-.five-column > :nth-child(2),
-.five-column > :nth-child(4),
-.five-column > :nth-child(6),
-.five-column > :nth-child(8),
-.five-column > :nth-child(10) {
-    grid-row: 1/2;
+.card {
+  background-color: #FFCC00;
+  padding: 15px;
+  text-align: center; /* Centers the image, title, and button */
+  border-radius: 8px;  /* Optional rounded corners */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
-.five-column > :nth-child(2) {
+
+.card p {
+    overflow-wrap: break-word;
+    margin-top: auto;
+    margin-bottom: 95%;
+}
+
+.button-class {
+    margin: 0 auto;
+    margin-top: auto;
+    margin-bottom: 7.5%;
     width: 50%;
+    display: block;
+    background-color: #C41D1D;
+    border: none;
+    text-decoration: none;
+    border-radius: 10%;
+    padding: 3%;
 }
+.button-class:hover {
+    transform: scale(1.2);
+}
+
