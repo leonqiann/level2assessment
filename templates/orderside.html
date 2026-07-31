@@ -1,0 +1,19 @@
+
+{% extends "layout.html" %}
+{% block body %}
+<!-- five column grid for layouit of the menu-->
+<div class="five-column">
+    {% for sideimage in results %}
+    <div class="card">
+    <img src="{{sideimage[1]}}" alt="">
+    <p>{{sideimage[0]}}</p>
+    	<a href="/cart" class="button-class">
+      Add to order</a>
+    </div>
+{% endfor %}
+
+
+</div>
+
+
+{% endblock %}

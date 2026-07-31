@@ -26,6 +26,9 @@ nav {
 .order-now a {
     text-decoration: none;
 }
+.order-now:hover {
+    transform: scale(1.05);
+}
 .homeheader {
     text-align: center;
     grid-row: 1;
@@ -124,6 +127,6 @@ body {
     padding: 3%;
 }
 .button-class:hover {
-    transform: scale(1.2);
+    transform: scale(1.05);
 }
 
