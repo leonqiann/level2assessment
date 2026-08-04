@@ -48,7 +48,6 @@ nav {
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
-    overflow: hidden;
 }
 
 .spicyimg {
@@ -89,8 +88,8 @@ body {
 .five-column {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 4%;
+    margin-bottom: 4%;
     gap: 5%;
 }
 
