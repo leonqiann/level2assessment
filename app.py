@@ -32,7 +32,13 @@ def home():
 
 @app.route('/order')
 def order():
-    return render_template("order.html")
+    sql = "select base_image from base"
+    bases = query_db(sql)
+    sql = "select topping_image from topping"
+    toppings = query_db(sql)
+    sql = "select side_image from sides"
+    sides = query_db(sql)
+    return render_template("order.html", bases=bases, toppings=toppings, sides=sides)
 
 @app.route('/orderbase')
 def orderbase():

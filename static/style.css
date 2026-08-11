@@ -110,9 +110,7 @@ body {
 }
 
 .card p {
-    overflow-wrap: break-word;
-
-    
+    overflow-wrap: break-word; 
 }
 
 .button-class {
@@ -130,3 +128,27 @@ body {
     transform: scale(1.05);
 }
 
+.three-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+
+}
+.three-column img {
+    width: 70%;
+}
+
+.cardorder {
+  background-color: #FFCC00;
+  padding: 5%;
+  text-align: center;
+  width: 50%;
+  height: 40%;
+
+}
+
+.cardorder p {
+    overflow-wrap: break-word; 
+    font-size: 30px;
+}

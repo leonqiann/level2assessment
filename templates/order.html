@@ -1,6 +1,27 @@
 
 {% extends "layout.html" %}
-
+{% block body %}
+<!-- five column grid for layouit of the menu-->
+<div class="three-column">
+    {% if bases %}
+    <div class="cardorder">
+     <a href="/orderbase"> <img src="{{ bases[0][0]}}" alt="base"> </a>
+     <p>Noodles</p>
+    </div>
+{% endif %}
+    {% if toppings %}
+    <div class="cardorder">
+    <a href="/ordertopping"> <img src="{{ toppings[4][0]}}" alt="topping"> </a> 
+    <p>Toppings</p>
+    </div>
+{% endif %}
+    {% if sides %}
+    <div class="cardorder">
+     <a href="/orderside"> <img src="{{ sides[0][0]}}" alt="side"> </a>
+     <p>Sides</p>
+    </div>
+{% endif %}
+</div>
 
 
 {% endblock %}
