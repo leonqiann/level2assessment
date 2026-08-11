@@ -30,11 +30,15 @@ def home():
     results = query_db(sql)
     return render_template("home.html", results=results)
 
-@app.route('/orderbase')
+@app.route('/order')
 def order():
+    return render_template("order.html")
+
+@app.route('/orderbase')
+def orderbase():
     sql = "SELECT base_name, base_image FROM base "
     results = query_db(sql)
-    return render_template("order.html", results=results)
+    return render_template("orderbase.html", results=results)
 
 @app.route('/ordertopping')
 def ordertopping():
