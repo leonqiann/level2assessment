@@ -58,7 +58,11 @@ def orderside():
     results = query_db(sql)
     return render_template("orderside.html", results=results)
 
-
+@app.route('/signup')
+def signup():
+    sql = "SELECT side_name, side_image FROM sides "
+    results = query_db(sql)
+    return render_template("signup.html", results=results)
 
 @app.route('/cart')
 def cart():
