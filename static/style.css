@@ -4,7 +4,14 @@
     color: #000000 !important;
     margin-top: 0%;
 }
+.w3-button:hover { 
+    background-color: #AE1111 !important;
+}
 
+.nav {
+    position: relative;
+    z-index: 1;
+}
 
 nav {
     font-size: 50px;
@@ -151,4 +158,43 @@ body {
 .cardorder p {
     overflow-wrap: break-word; 
     font-size: 30px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content{
+    display: none;
+    z-index: 1000;
+    position: absolute;
+    background-color: #C41D1D;
+}
+
+.dropdown-content a{
+    display: block;
+    text-decoration: none;
+    background-color: #C41D1D;
+}
+
+.dropdown-content a:hover{
+    background-color: #AE1111;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+    display: block;
+}
+
+.dropbtn {
+    background-color: #C41D1D;
+    border: none;
+    padding: none;
+}
+
+.site-header {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
 }
