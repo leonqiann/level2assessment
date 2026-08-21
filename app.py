@@ -1,91 +1,138 @@
-from flask import Flask, g, render_template
-import sqlite3
 
-DATABASE = 'wokthiswayimproved.db'
+import sqlite3
+from flask import Flask, g, render_template
+
+# Database file location
+DATABASE = "wokthiswayimproved.db"
 
 app = Flask(__name__)
 
+
+# =============================================================================
+# DATABASE FUNCTIONS
+# =============================================================================
+
+
 def get_db():
-    db = getattr(g, '_database', None)
+    """Opens a database connection if one does not exist for current context."""
+    db = getattr(g, "_database", None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
 
+
 @app.teardown_appcontext
 def close_connection(exception):
-    db = getattr(g, '_database', None)
+    """Closes database connection when request context ends."""
+    db = getattr(g, "_database", None)
     if db is not None:
         db.close()
 
+
 def query_db(query, args=(), one=False):
+    """Executes SQL query and returns fetched results safely."""
     cur = get_db().execute(query, args)
     rv = cur.fetchall()
     cur.close()
-    return (rv[0] if rv else None) if one else rv   
+    return (rv[0] if rv else None) if one else rv
 
-@app.route('/')
+
+# =============================================================================
+# ROUTE HANDLERS
+# =============================================================================
+
+
+@app.route("/")
 def home():
-    #home page just the mouthwatering spicy noodles
+    # Fetch customer order relational data for home view
     sql = "SELECT orderbase_id, ordertopping_id, orderside_id FROM customer_order LEFT JOIN topping ON customer_order.ordertopping_id = topping.id LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
     results = query_db(sql)
     return render_template("home.html", results=results)
 
-@app.route('/order')
+
+@app.route("/order")
 def order():
+    # Fetch preview images for bases, toppings, and sides
     sql = "select base_image from base"
     bases = query_db(sql)
     sql = "select topping_image from topping"
     toppings = query_db(sql)
     sql = "select side_image from sides"
     sides = query_db(sql)
-    return render_template("order.html", bases=bases, toppings=toppings, sides=sides)
 
-@app.route('/orderbase')
+    return render_template(
+        "order.html", bases=bases, toppings=toppings, sides=sides
+    )
+
+
+@app.route("/orderbase")
 def orderbase():
+    # Fetch base options for base menu
     sql = "SELECT base_name, base_image FROM base "
     results = query_db(sql)
     return render_template("orderbase.html", results=results)
 
-@app.route('/ordertopping')
+
+@app.route("/ordertopping")
 def ordertopping():
+    # Fetch topping options for topping menu
     sql = "SELECT topping_name, topping_image FROM topping "
     results = query_db(sql)
     return render_template("ordertopping.html", results=results)
 
-@app.route('/orderside')
+
+@app.route("/orderside")
 def orderside():
+    # Fetch side options for side menu
     sql = "SELECT side_name, side_image FROM sides "
     results = query_db(sql)
     return render_template("orderside.html", results=results)
 
-@app.route('/signup')
+
+@app.route("/signup")
 def signup():
+    # Fetch sides data for signup view
     sql = "SELECT side_name, side_image FROM sides "
     results = query_db(sql)
     return render_template("signup.html", results=results)
 
-@app.route('/cart')
+
+@app.route("/cart")
 def cart():
+    # Render shopping cart page
     return render_template("cart.html")
 
-@app.route('/login')
+
+@app.route("/login")
 def login():
+    # Render user login page
     return render_template("login.html")
 
-@app.route('/about')
+
+@app.route("/about")
 def about():
+    # Render static about page
     return render_template("about.html")
 
-@app.route('/contact')
+
+@app.route("/contact")
 def contact():
+    # Render static contact page
     return render_template("contact.html")
+
 
 @app.route("/base/<int:id>")
 def baseimage(id):
-    #just one noodle based on the id 
+    # Fetch single base image by ID parameter
     sql = "SELECT base_image from base"
-    result=query_db(sql,(id,),True)
+    result = query_db(sql, (id,), True)
     return str(result)
 
+
+# =============================================================================
+# MAIN ENTRY POINT
+# =============================================================================
+
 if __name__ == "__main__":
+    # Start development server with debugging enabled
     app.run(debug=True)

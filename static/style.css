@@ -8,6 +8,9 @@
     background-color: #AE1111 !important;
 }
 
+.w3-bar {
+    overflow: visible;
+}
 .nav {
     position: relative;
     z-index: 1;
@@ -163,19 +166,24 @@ body {
 .dropdown {
     position: relative;
     display: inline-block;
+    vertical-align: middle;
 }
 
 .dropdown-content{
     display: none;
-    z-index: 1000;
+    z-index: 10000;
     position: absolute;
-    background-color: #C41D1D;
+    background-color:#C41D1D;
+    overflow: hidden;
+    top: 1000;
 }
 
 .dropdown-content a{
     display: block;
     text-decoration: none;
     background-color: #C41D1D;
+    overflow: hidden;
+    font-size: x-large;
 }
 
 .dropdown-content a:hover{
@@ -191,10 +199,11 @@ body {
     background-color: #C41D1D;
     border: none;
     padding: none;
+    cursor: pointer;
 }
 
 .site-header {
     position: relative;
-    z-index: 1;
+    z-index: 100;
     box-sizing: border-box;
 }
