@@ -1,6 +1,7 @@
 
 import sqlite3
 from flask import Flask, g, render_template
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Database file location
 DATABASE = "wokthiswayimproved.db"
