@@ -175,7 +175,6 @@ body {
     position: absolute;
     background-color:#C41D1D;
     overflow: hidden;
-    top: 1000;
 }
 
 .dropdown-content a{
@@ -206,4 +205,37 @@ body {
     position: relative;
     z-index: 100;
     box-sizing: border-box;
+}
+
+.card.dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.card.dropdown-content{
+    display: none;
+    z-index: 10000;
+    position: absolute;
+    background-color:#C41D1D;
+    overflow: hidden;
+    transform: translateX(-50%);
+}
+
+.card.dropdown-content a{
+    display: block;
+    text-decoration: none;
+    background-color: #C41D1D;
+    overflow: hidden;
+    font-size: x-large;
+    text-align: center;
+}
+
+.card.dropdown-content a:hover{
+    background-color: #AE1111;
+}
+
+.card.dropdown:hover .dropdown-content,
+.card.dropdown:focus-within .dropdown-content {
+    display: block;
 }
