@@ -123,6 +123,10 @@ body {
     overflow-wrap: break-word; 
 }
 
+.nav.dropbtn {
+    background-color: #C41D1D;
+}
+
 .button-class {
     margin: 0 auto;
     margin-bottom: 7.5%;
@@ -171,7 +175,6 @@ body {
 
 .dropdown-content{
     display: none;
-    z-index: 10000;
     position: absolute;
     background-color:#C41D1D;
     overflow: hidden;
@@ -207,22 +210,20 @@ body {
     box-sizing: border-box;
 }
 
-.card.dropdown {
+.card-dropdown {
     position: relative;
     display: inline-block;
     vertical-align: middle;
 }
 
-.card.dropdown-content{
+.card-dropdown-content{
     display: none;
-    z-index: 10000;
     position: absolute;
     background-color:#C41D1D;
     overflow: hidden;
-    transform: translateX(-50%);
 }
 
-.card.dropdown-content a{
+.card-dropdown-content a{
     display: block;
     text-decoration: none;
     background-color: #C41D1D;
@@ -231,11 +232,18 @@ body {
     text-align: center;
 }
 
-.card.dropdown-content a:hover{
+.card-dropdown-content a:hover{
     background-color: #AE1111;
 }
 
-.card.dropdown:hover .dropdown-content,
-.card.dropdown:focus-within .dropdown-content {
-    display: block;
+.card-dropdown:hover .card-dropdown-content,
+.card-dropdown:focus-within .card-dropdown-content {
+    display:flex;
+}
+
+.card-dropbtn {
+    background-color: #C41D1D;
+    border: none;
+    padding: none;
+    cursor: pointer;
 }
