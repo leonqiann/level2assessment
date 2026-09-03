@@ -1,12 +1,14 @@
 
 import sqlite3
-from flask import Flask, g, render_template
+from flask import Flask, g, render_template, session, flash, redirect, request
 from werkzeug.security import generate_password_hash, check_password_hash
+
 
 # Database file location
 DATABASE = "wokthiswayimproved.db"
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = "key123"
 
 
 # =============================================================================
@@ -90,12 +92,22 @@ def orderside():
     return render_template("orderside.html", results=results)
 
 
-@app.route("/signup")
+@app.route('/signup', methods=["GET", "POST"])
 def signup():
-    # Fetch sides data for signup view
-    sql = "SELECT side_name, side_image FROM sides "
-    results = query_db(sql)
-    return render_template("signup.html", results=results)
+    ''' # Route for signup page'''
+    if request.method == "POST":
+        # add username & password to db
+        username = request.form['username']
+        password = request.form['password']
+        address = request.form['address']
+        # hash with hash thingy
+        hashed_password = generate_password_hash(password)
+        # put into db
+        sql = "INSERT INTO customer (username,password,address) VALUES (?,?,?)"
+        query_db(sql, (username, hashed_password, address))
+        flash("Sign Up Successful", "success")
+        return redirect("/login")
+    return render_template('signup.html')
 
 
 @app.route("/cart")
@@ -104,10 +116,33 @@ def cart():
     return render_template("cart.html")
 
 
-@app.route("/login")
+@app.route('/login', methods=["GET", "POST"])
 def login():
-    # Render user login page
-    return render_template("login.html")
+    '''Route for login Page'''
+    # if the user posts a username and password
+    if request.method == "POST":
+        # get the username and password
+        username = request.form['username']
+        password = request.form['password']
+        # try to find this user in the database
+        sql = "SELECT * FROM customer WHERE username = ?"
+        user = query_db(sql=sql, args=(username,), one=True)
+        if user:
+            # we got a user!!
+            # check password matches-
+            if check_password_hash(user[2], password):
+                # we are logged in successfully
+                # Store the username in the session
+                session['user'] = user
+                flash("Logged in successfully", "success")
+                session['cart'] = []
+                return redirect("/menu")
+            flash("Password incorrect", "error")
+        else:
+            flash("Username does not exist", "error")
+    # render this template regardless of get/post
+    return render_template('login.html')
+
 
 
 @app.route("/about")

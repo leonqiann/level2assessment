@@ -214,6 +214,8 @@ body {
     position: relative;
     display: inline-block;
     vertical-align: middle;
+    width: max-content;
+    align-self: center;
 }
 
 .card-dropdown-content{
@@ -221,13 +223,18 @@ body {
     position: absolute;
     background-color:#C41D1D;
     overflow: hidden;
+    top: 100%;
+    left: 13%;
+    width: 75%;
+    min-height: 250%;
+    flex-direction: column;
 }
 
 .card-dropdown-content a{
     display: block;
     text-decoration: none;
     background-color: #C41D1D;
-    overflow: hidden;
+    width: 100%;
     font-size: x-large;
     text-align: center;
 }
