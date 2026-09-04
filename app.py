@@ -98,57 +98,53 @@ def orderside():
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
-    ''' # Route for signup page'''
+    '''Route for signup page'''
     if request.method == "POST":
-        # add username & password to db
         username = request.form['username']
         password = request.form['password']
         address = request.form['address']
-        # hash with werkzueg
+        
         hashed_password = generate_password_hash(password)
-        # put into db
-        db = get_db()
-        sql = "INSERT INTO customer (username,password,address) VALUES (?,?,?)"
-        db.commit()
+        
+        # Execute the INSERT statement (query_db commits automatically)
+        sql = "INSERT INTO customer (username, password, address) VALUES (?, ?, ?)"
         query_db(sql, (username, hashed_password, address))
+        
         flash("Sign Up Successful", "success")
         return redirect("/login")
+        
     return render_template('signup.html')
+
+
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    '''Route for login Page'''
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['password']
+        
+        sql = "SELECT username, password FROM customer WHERE username = ?"
+        user = query_db(sql, (username,), one=True)
+        
+        if user:
+            # Fixed: Check index 1 for password hash (0 is username, 1 is password)
+            if check_password_hash(user[1], password):
+                session['user'] = user[0]
+                session['cart'] = []
+                flash("Logged in successfully", "success")
+                return redirect("/") # Make sure /menu exists or redirect home /
+            
+            flash("Password incorrect", "error")
+        else:
+            flash("Username does not exist", "error")
+            
+    return render_template('login.html')
 
 
 @app.route("/cart")
 def cart():
     # Render shopping cart page
     return render_template("cart.html")
-
-
-@app.route('/login', methods=["GET", "POST"])
-def login():
-    '''Route for login Page'''
-    # if the user posts a username and password
-    if request.method == "POST":
-        # get the username and password
-        username = request.form['username']
-        password = request.form['password']
-        # try to find this user in the database
-        sql = "SELECT username, password FROM customer WHERE username = ?"
-        user = query_db(sql=sql, args=(username,), one=True)
-        if user:
-            # we got a user!!
-            # check password matches-
-            if check_password_hash(user[2], password):
-                # we are logged in successfully
-                # Store the username in the session
-                session['user'] = user
-                flash("Logged in successfully", "success")
-                session['cart'] = []
-                return redirect("/menu")
-            flash("Password incorrect", "error")
-        else:
-            flash("Username does not exist", "error")
-    # render this template regardless of get/post
-    return render_template('login.html')
-
 
 
 @app.route("/about")

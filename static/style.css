@@ -76,7 +76,7 @@ footer {
 }
 body {  
     background-color: #E4C443;
-    margin-top: auto;
+    min-height: 100vh;
     padding: 0;
 }
 .site-header {
