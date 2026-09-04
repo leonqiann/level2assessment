@@ -34,7 +34,11 @@ def close_connection(exception):
 
 def query_db(query, args=(), one=False):
     """Executes SQL query and returns fetched results safely."""
+    db = get_db()
     cur = get_db().execute(query, args)
+    
+    db.commit()
+
     rv = cur.fetchall()
     cur.close()
     return (rv[0] if rv else None) if one else rv
@@ -100,10 +104,12 @@ def signup():
         username = request.form['username']
         password = request.form['password']
         address = request.form['address']
-        # hash with hash thingy
+        # hash with werkzueg
         hashed_password = generate_password_hash(password)
         # put into db
+        db = get_db()
         sql = "INSERT INTO customer (username,password,address) VALUES (?,?,?)"
+        db.commit()
         query_db(sql, (username, hashed_password, address))
         flash("Sign Up Successful", "success")
         return redirect("/login")
@@ -125,7 +131,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         # try to find this user in the database
-        sql = "SELECT * FROM customer WHERE username = ?"
+        sql = "SELECT username, password FROM customer WHERE username = ?"
         user = query_db(sql=sql, args=(username,), one=True)
         if user:
             # we got a user!!
