@@ -1,5 +1,16 @@
 {% extends "layout.html" %}
 {% block body %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for category, message in messages %}
+        <div class="flash-alert flash-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
 <div class="login-container">
     <h1>Signup</h1>
     <form action="/signup" method="post" class="auth-form">

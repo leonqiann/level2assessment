@@ -1,6 +1,18 @@
 {% extends "layout.html" %}
 {% block body %}
+
 <div class="login-container">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for category, message in messages %}
+        <div class="flash-alert flash-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
     <h1>Login</h1>
 
     <form action="/login" method="post" class="auth-form">
@@ -18,4 +30,22 @@
     <a href="/signup">Don't have an account? Register</a>
 </div>
 
+
+<script>
+  // Wait 3 seconds (3000ms), then fade out and remove the alert
+  setTimeout(function() {
+    const flashMessage = document.getElementById('flash-container');
+    if (flashMessage) {
+      flashMessage.style.transition = 'opacity 0.5s ease';
+      flashMessage.style.opacity = '0';
+      
+      // Remove element completely after fade out completes
+      setTimeout(() => flashMessage.remove(), 500);
+    }
+  }, 3000);
+</script>
+
 {% endblock %}
+
+
+

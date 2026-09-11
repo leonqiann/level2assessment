@@ -132,7 +132,6 @@ def login():
                 session['user'] = user[0]
                 session['cart'] = []
                 flash("Logged in successfully", "success")
-                return redirect("/") # Make sure /menu exists or redirect home /
             
             flash("Password incorrect", "error")
         else:
