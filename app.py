@@ -127,13 +127,13 @@ def login():
         user = query_db(sql, (username,), one=True)
         
         if user:
-            # Fixed: Check index 1 for password hash (0 is username, 1 is password)
+            # (0 is username, 1 is password)
             if check_password_hash(user[1], password):
                 session['user'] = user[0]
                 session['cart'] = []
                 flash("Logged in successfully", "success")
-            
-            flash("Password incorrect", "error")
+            else:
+             flash("Password incorrect", "error")
         else:
             flash("Username does not exist", "error")
             

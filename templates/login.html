@@ -31,20 +31,6 @@
 </div>
 
 
-<script>
-  // Wait 3 seconds (3000ms), then fade out and remove the alert
-  setTimeout(function() {
-    const flashMessage = document.getElementById('flash-container');
-    if (flashMessage) {
-      flashMessage.style.transition = 'opacity 0.5s ease';
-      flashMessage.style.opacity = '0';
-      
-      // Remove element completely after fade out completes
-      setTimeout(() => flashMessage.remove(), 500);
-    }
-  }, 3000);
-</script>
-
 {% endblock %}
 
 
