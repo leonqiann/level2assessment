@@ -160,8 +160,10 @@ def logout():
 
 @app.route("/cart")
 def cart():
+    sql = "SELECT customer_id, orderbase_id, ordertopping_id, orderside_id FROM customer_order "
+    results = query_db(sql)
     # Render shopping cart page
-    return render_template("cart.html")
+    return render_template("cart.html", results=results)
 
 
 @app.route("/about")
