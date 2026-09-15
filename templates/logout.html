@@ -1,0 +1,12 @@
+{% extends "layout.html"%}
+{% block body %}
+<h1>You have successfully been logged out</h1>
+
+    <script>
+      setTimeout(function() {
+          window.location.href = "/"; // Change to your desired target route
+      }, 1500); 
+    </script>
+    
+
+{% endblock %}

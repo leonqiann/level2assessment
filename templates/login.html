@@ -10,6 +10,15 @@
         <div class="flash-alert flash-{{ category }}">{{ message }}</div>
       {% endfor %}
     </div>
+
+
+    {% if session.get('user')%}
+    <script>
+      setTimeout(function() {
+          window.location.href = "/"; // redirects to home
+      }, 1500); 
+    </script>
+    {% endif %}
   {% endif %}
 {% endwith %}
 

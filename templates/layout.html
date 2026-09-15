@@ -25,7 +25,16 @@
             </div>
         </div> 
         <a href="/cart" class="w3-bar-item w3-button"> Cart </a> 
-        <a href="/login" class="w3-bar-item w3-button"> <img src="static/images/loginimg.png" alt="login"></a>
+        {% if session.get('user') %}
+        <!-- shows what the logged in user sees-->
+        <div class="w3-bar-item w3-button">{{session['user']}}</div>
+        <a href="/logout" class="w3-bar-item w3-button"> Logout </a>
+        {% else %}
+         <a href="/login" class="w3-bar-item w3-button"> <img src="static/images/loginimg.png" alt="login"></a>
+        {% endif %}
+
+
+        
 
         
 

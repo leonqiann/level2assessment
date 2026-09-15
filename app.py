@@ -99,6 +99,10 @@ def orderside():
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     '''Route for signup page'''
+    
+    if 'user' in session:
+        flash("You are already logged in!", "error")
+    
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
@@ -119,6 +123,10 @@ def signup():
 @app.route('/login', methods=["GET", "POST"])
 def login():
     '''Route for login Page'''
+    
+    if 'user' in session:
+        flash("You are already logged in!", "error")
+    
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
@@ -138,6 +146,16 @@ def login():
             flash("Username does not exist", "error")
             
     return render_template('login.html')
+
+@app.route("/logout")
+def logout():
+    # Render logout page
+    # clear all user data from session
+    session.clear()
+    flash("You have been logged out successfully", "success")
+    
+    return render_template("logout.html")
+
 
 
 @app.route("/cart")

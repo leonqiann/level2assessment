@@ -1,17 +1,28 @@
 {% extends "layout.html" %}
 {% block body %}
 
-{% with messages = get_flashed_messages(with_categories=true) %}
+
+<div class="login-container">
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     <div class="flash-messages">
       {% for category, message in messages %}
         <div class="flash-alert flash-{{ category }}">{{ message }}</div>
       {% endfor %}
     </div>
+
+    {% if session.get('user')%}
+    <script>
+      setTimeout(function() {
+          window.location.href = "/"; // redirects to home
+      }, 1500); 
+    </script>
+    {% endif %}
+    
   {% endif %}
 {% endwith %}
 
-<div class="login-container">
     <h1>Signup</h1>
     <form action="/signup" method="post" class="auth-form">
         <div class="auth-form-group">
