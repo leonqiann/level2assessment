@@ -278,3 +278,14 @@ body {
     background-color: #4CAF50;
     color: white;
 }
+
+.aboutus {
+    text-align: center;
+    margin-right: 20% ;
+    margin-top: 13%;
+    margin-left: 10%;
+}
+
+.aboutus-image {
+    margin-left: 5%;
+}
