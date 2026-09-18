@@ -52,7 +52,7 @@ def query_db(query, args=(), one=False):
 @app.route("/")
 def home():
     # Fetch customer order relational data for home view
-    sql = "SELECT orderbase_id, ordertopping_id, orderside_id FROM customer_order LEFT JOIN topping ON customer_order.ordertopping_id = topping.id LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
+    sql = "SELECT orderbase_id, orderside_id FROM customer_order  LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
     results = query_db(sql)
     return render_template("home.html", results=results)
 
@@ -62,13 +62,11 @@ def order():
     # Fetch preview images for bases, toppings, and sides
     sql = "select base_image from base"
     bases = query_db(sql)
-    sql = "select topping_image from topping"
-    toppings = query_db(sql)
     sql = "select side_image from sides"
     sides = query_db(sql)
 
     return render_template(
-        "order.html", bases=bases, toppings=toppings, sides=sides
+        "order.html", bases=bases, sides=sides
     )
 
 
@@ -79,13 +77,6 @@ def orderbase():
     results = query_db(sql)
     return render_template("orderbase.html", results=results)
 
-
-@app.route("/ordertopping")
-def ordertopping():
-    # Fetch topping options for topping menu
-    sql = "SELECT topping_name, topping_image FROM topping "
-    results = query_db(sql)
-    return render_template("ordertopping.html", results=results)
 
 
 @app.route("/orderside")
@@ -103,19 +94,26 @@ def signup():
     if 'user' in session:
         flash("You are already logged in!", "error")
     
+
+    
+    
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
         address = request.form['address']
         
-        hashed_password = generate_password_hash(password)
+        existing_user = query_db("SELECT id FROM customer WHERE username =?", [username], one=True)
+        if existing_user is not None:
+            flash("That username already exists, please log in or use a different name.")
+        else:
+            hashed_password = generate_password_hash(password)
         
         # Execute the INSERT statement (query_db commits automatically)
-        sql = "INSERT INTO customer (username, password, address) VALUES (?, ?, ?)"
-        query_db(sql, (username, hashed_password, address))
+            sql = "INSERT INTO customer (username, password, address) VALUES (?, ?, ?)"
+            query_db(sql, (username, hashed_password, address))
         
-        flash("Sign Up Successful", "success")
-        return redirect("/login")
+            flash("Sign Up Successful", "success")
+            return redirect("/login")
         
     return render_template('signup.html')
 
@@ -160,7 +158,7 @@ def logout():
 
 @app.route("/cart")
 def cart():
-    sql = "SELECT customer_id, orderbase_id, ordertopping_id, orderside_id FROM customer_order "
+    sql = "SELECT customer_id, orderbase_id, orderside_id FROM customer_order "
     results = query_db(sql)
     # Render shopping cart page
     return render_template("cart.html", results=results)
