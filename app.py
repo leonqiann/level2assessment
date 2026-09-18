@@ -52,7 +52,7 @@ def query_db(query, args=(), one=False):
 @app.route("/")
 def home():
     # Fetch customer order relational data for home view
-    sql = "SELECT orderbase_id, ordertopping_id, orderside_id FROM customer_order LEFT JOIN topping ON customer_order.ordertopping_id = topping.id LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
+    sql = "SELECT orderbase_id, orderside_id FROM customer_order LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
     results = query_db(sql)
     return render_template("home.html", results=results)
 
@@ -62,13 +62,11 @@ def order():
     # Fetch preview images for bases, toppings, and sides
     sql = "select base_image from base"
     bases = query_db(sql)
-    sql = "select topping_image from topping"
-    toppings = query_db(sql)
     sql = "select side_image from sides"
     sides = query_db(sql)
 
     return render_template(
-        "order.html", bases=bases, toppings=toppings, sides=sides
+        "order.html", bases=bases, sides=sides
     )
 
 
@@ -79,13 +77,6 @@ def orderbase():
     results = query_db(sql)
     return render_template("orderbase.html", results=results)
 
-
-@app.route("/ordertopping")
-def ordertopping():
-    # Fetch topping options for topping menu
-    sql = "SELECT topping_name, topping_image FROM topping "
-    results = query_db(sql)
-    return render_template("ordertopping.html", results=results)
 
 
 @app.route("/orderside")
@@ -160,10 +151,33 @@ def logout():
 
 @app.route("/cart")
 def cart():
-    sql = "SELECT customer_id, orderbase_id, ordertopping_id, orderside_id FROM customer_order "
-    results = query_db(sql)
+    
+    if 'user' not in session:
+        flash("You must be logged in to view your cart", "error")
+    
+    username = session['user']
+    sql_user = "SELECT id FROM customer WHERE username = ?"
+    user = query_db(sql_user, (username,), one=True)
+
+    customer_id = user[0]
+
+    if not user:
+        session.clear()
+        flash("User session invalid, please log in again", "error")
+
+    
+    sql_cart = """
+        SELECT customer_order.id, base.base_name, sides.side_name
+        FROM customer_order
+        LEFT JOIN orderbase ON customer_order.orderbase_id = orderbase.id
+        LEFT JOIN base ON orderbase.base_id = base.id
+        LEFT JOIN orderside ON customer_order.orderside_id = orderside.id
+        LEFT JOIN sides ON orderside.side_id = sides.id
+        WHERE customer_order.customer_id = ?
+    """
+    cart_items = query_db(sql_cart, (customer_id,))
     # Render shopping cart page
-    return render_template("cart.html", results=results)
+    return render_template("cart.html", cart_items=cart_items)
 
 
 @app.route("/about")
