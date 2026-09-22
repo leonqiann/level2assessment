@@ -150,7 +150,6 @@ def logout():
     # Render logout page
     # clear all user data from session
     session.clear()
-    flash("You have been logged out successfully", "success")
     
     return render_template("logout.html")
 
@@ -161,18 +160,20 @@ def cart():
     
     if 'user' not in session:
         flash("You must be logged in to view your cart", "error")
+        return redirect('/login')
+    
     
     username = session['user']
     sql_user = "SELECT id FROM customer WHERE username = ?"
     user = query_db(sql_user, (username,), one=True)
 
-    customer_id = user[0]
-
     if not user:
         session.clear()
         flash("User session invalid, please log in again", "error")
-
+        return redirect('/login')
     
+    customer_id = user[0]
+
     sql_cart = """
         SELECT customer_order.id, base.base_name, sides.side_name
         FROM customer_order
