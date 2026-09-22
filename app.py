@@ -52,7 +52,7 @@ def query_db(query, args=(), one=False):
 @app.route("/")
 def home():
     # Fetch customer order relational data for home view
-    sql = "SELECT orderbase_id, orderside_id FROM customer_order  LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
+    sql = "SELECT orderbase_id, orderside_id FROM customer_order LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
     results = query_db(sql)
     return render_template("home.html", results=results)
 
@@ -158,10 +158,33 @@ def logout():
 
 @app.route("/cart")
 def cart():
-    sql = "SELECT customer_id, orderbase_id, orderside_id FROM customer_order "
-    results = query_db(sql)
+    
+    if 'user' not in session:
+        flash("You must be logged in to view your cart", "error")
+    
+    username = session['user']
+    sql_user = "SELECT id FROM customer WHERE username = ?"
+    user = query_db(sql_user, (username,), one=True)
+
+    customer_id = user[0]
+
+    if not user:
+        session.clear()
+        flash("User session invalid, please log in again", "error")
+
+    
+    sql_cart = """
+        SELECT customer_order.id, base.base_name, sides.side_name
+        FROM customer_order
+        LEFT JOIN orderbase ON customer_order.orderbase_id = orderbase.id
+        LEFT JOIN base ON orderbase.base_id = base.id
+        LEFT JOIN orderside ON customer_order.orderside_id = orderside.id
+        LEFT JOIN sides ON orderside.side_id = sides.id
+        WHERE customer_order.customer_id = ?
+    """
+    cart_items = query_db(sql_cart, (customer_id,))
     # Render shopping cart page
-    return render_template("cart.html", results=results)
+    return render_template("cart.html", cart_items=cart_items)
 
 
 @app.route("/about")

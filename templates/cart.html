@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block body %}
 
+{% for customer in results %}
+    <img src="{{customer[1]}}" alt="">
+    <p>{{customer[2]}}</p>
+{% endfor %}
 
 
 
