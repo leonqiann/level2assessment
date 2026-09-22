@@ -207,6 +207,19 @@ def baseimage(id):
     result = query_db(sql, (id,), True)
     return str(result)
 
+# error 404 handler
+@app.errorhandler(404)
+def not_found(_):
+    """Show a page when a route/resource doesn't exist"""
+    return render_template('404.html'), 404
+
+# error 500 handler
+@app.errorhandler(500)
+def internal_error(_):
+    """Show a page for unhandled server errors"""
+    return render_template('500.html'), 500
+
+
 
 # =============================================================================
 # MAIN ENTRY POINT
