@@ -305,4 +305,6 @@ body {
     flex-direction: column;
     height: 10%;
     margin-top: auto;
+    text-decoration: none;
+    font-size: large;
 }
