@@ -187,22 +187,52 @@ def cart():
     # Render shopping cart page
     return render_template("cart.html", cart_items=cart_items)
 
+@app.route("/add_to_cart", methods=["POST"])
+def add_to_cart():
+    """Add an item to the shopping cart for the logged-in user."""
+    
+    if 'user' not in session:
+        flash("You must be logged in to add items to your cart", "error")
+        return redirect('/login')
+    
+    item_id = request.form.get("item_id")
+    quantity = request.form.get("quantity", 1)
+    
+    username = session['user']
+    user = query_db("SELECT id FROM customer WHERE username = ?", (username,), one=True)
+    
+    if not user:
+        session.clear()
+        flash("User session invalid, please log in again", "error")
+        return redirect('/login')
+    
+    customer_id = user[0]
+    
+    sql_insert = "INSERT INTO customer_order (customer_id, orderbase_id, orderside_id) VALUES (?, ?, ?)"
+    
+    for _ in range(int(quantity)): 
+        query_db(sql_insert, (customer_id, item_id, item_id))
+        
+    flash(f"Added {quantity} item(s) to your cart", "success")
+    return redirect('/cart')
+
+
 
 @app.route("/about")
 def about():
-    # Render static about page
+    """render  about page"""
     return render_template("about.html")
 
 
 @app.route("/contact")
 def contact():
-    # Render static contact page
+    """render static contact page"""
     return render_template("contact.html")
 
 
 @app.route("/base/<int:id>")
-def baseimage(id):
-    # Fetch single base image by ID parameter
+def baseimage(_):
+    """Fetch single base image by ID parameter"""
     sql = "SELECT base_image from base"
     result = query_db(sql, (id,), True)
     return str(result)

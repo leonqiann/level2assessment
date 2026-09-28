@@ -1,15 +1,29 @@
 {% extends "layout.html" %}
 {% block body %}
 
-{% for customer in results %}
-    <img src="{{customer[1]}}" alt="">
-    <p>{{customer[2]}}</p>
-{% endfor %}
+<div class="cart-container">
+    <h1>Your Order Cart</h1>
 
-
-
-
-
+    {% if cart_items %}
+        <div class="cart-list">
+            {% for item in cart_items %}
+                <div class="cart-item">
+                    <p><strong>Order #{{ item[0] }}</strong></p>
+                    
+                    {% if item[1] %}
+                        <p>Base: {{ item[1] }}</p>
+                    {% endif %}
+                    
+                    {% if item[2] %}
+                        <p>Side: {{ item[2] }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</div>
 
 
 
