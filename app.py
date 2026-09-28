@@ -73,7 +73,7 @@ def order():
 @app.route("/orderbase")
 def orderbase():
     # Fetch base options for base menu
-    sql = "SELECT base_name, base_image FROM base "
+    sql = "SELECT base_name, base_image, id FROM base "
     results = query_db(sql)
     return render_template("orderbase.html", results=results)
 
@@ -82,7 +82,7 @@ def orderbase():
 @app.route("/orderside")
 def orderside():
     # Fetch side options for side menu
-    sql = "SELECT side_name, side_image FROM sides "
+    sql = "SELECT side_name, side_image, id FROM sides "
     results = query_db(sql)
     return render_template("orderside.html", results=results)
 
@@ -189,30 +189,47 @@ def cart():
 
 @app.route("/add_to_cart", methods=["POST"])
 def add_to_cart():
-    """Add an item to the shopping cart for the logged-in user."""
-    
+    """add items to the shopping cart for the logged-in user"""
     if 'user' not in session:
         flash("You must be logged in to add items to your cart", "error")
         return redirect('/login')
-    
-    item_id = request.form.get("item_id")
-    quantity = request.form.get("quantity", 1)
-    
-    username = session['user']
-    user = query_db("SELECT id FROM customer WHERE username = ?", (username,), one=True)
-    
+
+    item_type = request.form.get("item_type")   # "base" or "side"
+    try:
+        item_id = int(request.form.get("item_id", ""))
+        quantity = int(request.form.get("quantity", 1))
+    except ValueError:
+        flash("Invalid item or quantity", "error")
+        return redirect('/order')
+
+    if item_type not in ("base", "side") or not 1 <= quantity <= 10:
+        flash("Invalid item or quantity", "error")
+        return redirect('/order')
+
+    user = query_db("SELECT id FROM customer WHERE username = ?",
+                    (session['user'],), one=True)
     if not user:
         session.clear()
         flash("User session invalid, please log in again", "error")
         return redirect('/login')
-    
-    customer_id = user[0]
-    
-    sql_insert = "INSERT INTO customer_order (customer_id, orderbase_id, orderside_id) VALUES (?, ?, ?)"
-    
-    for _ in range(int(quantity)): 
-        query_db(sql_insert, (customer_id, item_id, item_id))
-        
+
+    db = get_db()
+    if item_type == "base":
+        cur = db.execute(
+            "INSERT INTO orderbase (base_id, base_quantity) VALUES (?, ?)",
+            (item_id, quantity))
+        db.execute(
+            "INSERT INTO customer_order (customer_id, orderbase_id) VALUES (?, ?)",
+            (user[0], cur.lastrowid))
+    else:
+        cur = db.execute(
+            "INSERT INTO orderside (side_id, side_quantity) VALUES (?, ?)",
+            (item_id, quantity))
+        db.execute(
+            "INSERT INTO customer_order (customer_id, orderside_id) VALUES (?, ?)",
+            (user[0], cur.lastrowid))
+    db.commit()
+
     flash(f"Added {quantity} item(s) to your cart", "success")
     return redirect('/cart')
 

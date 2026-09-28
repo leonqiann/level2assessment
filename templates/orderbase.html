@@ -7,9 +7,18 @@
     <div class="card">
     <img src="{{ baseimage[1]}}" alt="">
     <p>{{baseimage[0]}}</p>
-    	<a href="/cart" class="button-class">Add to order</a>
+
+
+        <form action="/add_to_cart" method="post">
+            <input type="hidden" name="item_id" value="{{ baseimage[2] }}">
+            <input type="hidden" name="item_type" value="base">
+        
+        <button type="submit" class="button-class">Add to order</button>
+
+
+
         <div class="quantity-controls">
-    <label for="qty">Qty:</label>
+    <label>Qty:</label>
     <input type="number" name="quantity" class="qty-input" value="1" min="1" max="10">
 </div>
     </div>
