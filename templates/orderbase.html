@@ -3,26 +3,22 @@
 {% block body %}
 <!-- five column grid for layouit of the menu-->
 <div class="five-column">
-    {% for baseimage in results %}
-    <div class="card">
-    <img src="{{ baseimage[1]}}" alt="">
-    <p>{{baseimage[0]}}</p>
+   {% for baseimage in results %}
+<div class="card">
+    <img src="{{ baseimage[1] }}" alt="{{ baseimage[0] }}">
+    <p>{{ baseimage[0] }}</p>
 
-
-        <form action="/add_to_cart" method="post">
-            <input type="hidden" name="item_id" value="{{ baseimage[2] }}">
-            <input type="hidden" name="item_type" value="base">
-        
-        <button type="submit" class="button-class">Add to order</button>
-
-
-
+    <form action="/add_to_cart" method="post">
+        <input type="hidden" name="item_id" value="{{ baseimage[2] }}">
+        <input type="hidden" name="item_type" value="base">
         <div class="quantity-controls">
-    <label>Qty:</label>
-    <input type="number" name="quantity" class="qty-input" value="1" min="1" max="10">
+            <label>Qty:
+                <input type="number" name="quantity" class="qty-input" value="1" min="1" max="10">
+            </label>
+        </div>
+        <button type="submit" class="button-class">Add to order</button>
+    </form>
 </div>
-    </div>
- 
 {% endfor %}
 
 <a href="/orderside" class="nextbutton">Next</a>

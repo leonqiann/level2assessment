@@ -1,0 +1,7 @@
+-- database: c:\Users\Leon\Desktop\level2assessment\wokthiswayimproved.db
+SELECT base.base_name, SUM(orderbase.base_quantity) AS qty
+FROM customer_order
+JOIN orderbase ON customer_order.orderbase_id = orderbase.id
+JOIN base ON orderbase.base_id = base.id
+WHERE customer_order.customer_id = 7
+GROUP BY base.base_name;

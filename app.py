@@ -51,7 +51,7 @@ def query_db(query, args=(), one=False):
 
 @app.route("/")
 def home():
-    # Fetch customer order relational data for home view
+    """Fetch customer order relational data for home view"""
     sql = "SELECT orderbase_id, orderside_id FROM customer_order LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
     results = query_db(sql)
     return render_template("home.html", results=results)
@@ -59,7 +59,7 @@ def home():
 
 @app.route("/order")
 def order():
-    # Fetch preview images for bases, toppings, and sides
+    """preview images for bases, toppings, and sides"""
     sql = "select base_image from base"
     bases = query_db(sql)
     sql = "select side_image from sides"
@@ -72,7 +72,7 @@ def order():
 
 @app.route("/orderbase")
 def orderbase():
-    # Fetch base options for base menu
+    """noodle options for noodle menu"""
     sql = "SELECT base_name, base_image, id FROM base "
     results = query_db(sql)
     return render_template("orderbase.html", results=results)
@@ -81,7 +81,7 @@ def orderbase():
 
 @app.route("/orderside")
 def orderside():
-    # Fetch side options for side menu
+    """side options for side menu"""
     sql = "SELECT side_name, side_image, id FROM sides "
     results = query_db(sql)
     return render_template("orderside.html", results=results)
@@ -147,8 +147,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    # Render logout page
-    # clear all user data from session
+    """clear session and log out user"""
     session.clear()
     
     return render_template("logout.html")
@@ -157,39 +156,44 @@ def logout():
 
 @app.route("/cart")
 def cart():
-    
     if 'user' not in session:
         flash("You must be logged in to view your cart", "error")
         return redirect('/login')
-    
-    
-    username = session['user']
-    sql_user = "SELECT id FROM customer WHERE username = ?"
-    user = query_db(sql_user, (username,), one=True)
 
+    username = session['user']
+    user = query_db("SELECT id FROM customer WHERE username = ?", (username,), one=True)
     if not user:
         session.clear()
         flash("User session invalid, please log in again", "error")
         return redirect('/login')
-    
+
     customer_id = user[0]
 
-    sql_cart = """
-        SELECT customer_order.id, base.base_name, sides.side_name
+    sql_bases = """
+        SELECT base.base_name, SUM(orderbase.base_quantity) AS qty
         FROM customer_order
-        LEFT JOIN orderbase ON customer_order.orderbase_id = orderbase.id
-        LEFT JOIN base ON orderbase.base_id = base.id
-        LEFT JOIN orderside ON customer_order.orderside_id = orderside.id
-        LEFT JOIN sides ON orderside.side_id = sides.id
+        JOIN orderbase ON customer_order.orderbase_id = orderbase.id
+        JOIN base ON orderbase.base_id = base.id
         WHERE customer_order.customer_id = ?
+        GROUP BY base.base_name
     """
-    cart_items = query_db(sql_cart, (customer_id,))
-    # Render shopping cart page
-    return render_template("cart.html", cart_items=cart_items)
+    sql_sides = """
+        SELECT sides.side_name, SUM(orderside.side_quantity) AS qty
+        FROM customer_order
+        JOIN orderside ON customer_order.orderside_id = orderside.id
+        JOIN sides ON orderside.side_id = sides.id
+        WHERE customer_order.customer_id = ?
+        GROUP BY sides.side_name
+    """
+    bases = query_db(sql_bases, (customer_id,))
+    sides = query_db(sql_sides, (customer_id,))
+
+    return render_template("cart.html", bases=bases, sides=sides)
 
 @app.route("/add_to_cart", methods=["POST"])
 def add_to_cart():
     """add items to the shopping cart for the logged-in user"""
+    print(request.form)
     if 'user' not in session:
         flash("You must be logged in to add items to your cart", "error")
         return redirect('/login')
