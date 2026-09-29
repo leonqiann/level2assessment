@@ -237,7 +237,41 @@ def add_to_cart():
     flash(f"Added {quantity} item(s) to your cart", "success")
     return redirect('/cart')
 
+@app.route("/clear_cart", methods=["POST"])
+def clear_cart():
+    if 'user' not in session:
+        flash("You must be logged in to do that", "error")
+        return redirect('/login')
 
+    user = query_db("SELECT id FROM customer WHERE username = ?",
+                    (session['user'],), one=True)
+    if not user:
+        session.clear()
+        flash("User session invalid, please log in again", "error")
+        return redirect('/login')
+
+    customer_id = user[0]
+    db = get_db()
+
+    # Delete the orderbase/orderside rows this customer's orders point to,
+    # then the customer_order rows themselves.
+    db.execute("""
+        DELETE FROM orderbase WHERE id IN (
+            SELECT orderbase_id FROM customer_order
+            WHERE customer_id = ? AND orderbase_id IS NOT NULL
+        )
+    """, (customer_id,))
+    db.execute("""
+        DELETE FROM orderside WHERE id IN (
+            SELECT orderside_id FROM customer_order
+            WHERE customer_id = ? AND orderside_id IS NOT NULL
+        )
+    """, (customer_id,))
+    db.execute("DELETE FROM customer_order WHERE customer_id = ?", (customer_id,))
+    db.commit()
+
+    flash("Cart cleared", "success")
+    return redirect('/cart')
 
 @app.route("/about")
 def about():

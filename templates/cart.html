@@ -16,6 +16,12 @@
     {% else %}
         <p>Your cart is empty.</p>
     {% endif %}
+
+    {% if bases or sides %}
+    <form action="/clear_cart" method="post">
+        <button type="submit" class="button-class">Clear Cart</button>
+    </form>
+{% endif %}
 </div>
 
 {% endblock %}
