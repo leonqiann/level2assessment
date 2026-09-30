@@ -1,4 +1,4 @@
-
+"""Wok This Way - Flash app for noodle ordering """
 import sqlite3
 from flask import Flask, g, render_template, session, flash, redirect, request
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -52,7 +52,9 @@ def query_db(query, args=(), one=False):
 @app.route("/")
 def home():
     """Fetch customer order relational data for home view"""
-    sql = "SELECT orderbase_id, orderside_id FROM customer_order LEFT JOIN base ON customer_order.orderbase_id = base.id LEFT JOIN sides ON customer_order.orderside_id = sides.id"
+    sql = """SELECT orderbase_id, orderside_id FROM customer_order 
+    LEFT JOIN base ON customer_order.orderbase_id = base.id 
+    LEFT JOIN sides ON customer_order.orderside_id = sides.id"""
     results = query_db(sql)
     return render_template("home.html", results=results)
 
@@ -139,7 +141,7 @@ def login():
                 session['cart'] = []
                 flash("Logged in successfully", "success")
             else:
-             flash("Password incorrect", "error")
+                flash("Password incorrect", "error")
         else:
             flash("Username does not exist", "error")
             
@@ -156,6 +158,7 @@ def logout():
 
 @app.route("/cart")
 def cart():
+    """show cart for user if logged in"""
     if 'user' not in session:
         flash("You must be logged in to view your cart", "error")
         return redirect('/login')
@@ -239,6 +242,7 @@ def add_to_cart():
 
 @app.route("/clear_cart", methods=["POST"])
 def clear_cart():
+    """clear cart """
     if 'user' not in session:
         flash("You must be logged in to do that", "error")
         return redirect('/login')
@@ -275,13 +279,13 @@ def clear_cart():
 
 @app.route("/about")
 def about():
-    """render  about page"""
+    """about page"""
     return render_template("about.html")
 
 
 @app.route("/contact")
 def contact():
-    """render static contact page"""
+    """static contact page"""
     return render_template("contact.html")
 
 
