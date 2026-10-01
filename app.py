@@ -238,7 +238,7 @@ def add_to_cart():
     db.commit()
 
     flash(f"Added {quantity} item(s) to your cart", "success")
-    return redirect('/cart')
+    return redirect(request.referrer)
 
 @app.route("/clear_cart", methods=["POST"])
 def clear_cart():
@@ -290,9 +290,9 @@ def contact():
 
 
 @app.route("/base/<int:id>")
-def baseimage(_):
+def baseimage(id):
     """Fetch single base image by ID parameter"""
-    sql = "SELECT base_image from base"
+    sql = "SELECT base_image from base WHERE id = ?"
     result = query_db(sql, (id,), True)
     return str(result)
 
