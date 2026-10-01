@@ -106,7 +106,7 @@ def signup():
         
         existing_user = query_db("SELECT id FROM customer WHERE username =?", [username], one=True)
         if existing_user is not None:
-            flash("That username already exists, please log in or use a different name.")
+            flash("That username already exists, please log in or use a different name.", "error")
         else:
             hashed_password = generate_password_hash(password)
         
