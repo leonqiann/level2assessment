@@ -277,6 +277,75 @@ def clear_cart():
     flash("Cart cleared", "success")
     return redirect('/cart')
 
+@app.route("/remove_from_cart", methods=["POST"])
+def remove_from_cart():
+    """remove one item from cart"""
+    #has to be loged in
+    if 'user' not in session:
+        flash("You must be logged in to do that", "error")
+        return redirect('/login')
+
+    # find users customer id from username in session
+    user = query_db("SELECT id FROM customer WHERE username = ?",
+                    (session['user'],), one=True)
+    
+    #if user not found clear session
+    if not user:
+        session.clear()
+        flash("User session invalid, please log in again", "error")
+        return redirect('/login')
+
+    customer_id = user[0]
+    item_type = request.form.get("item_type")
+    item_name = request.form.get("item_name")
+    db = get_db()
+
+    if item_type == "base":
+        #find orderbase id and quantity for customer 
+        row = db.execute("""
+            SELECT orderbase.id, orderbase.base_quantity
+            FROM customer_order
+            JOIN orderbase ON customer_order.orderbase_id = orderbase.id
+            JOIN base ON orderbase.base_id = base.id
+            WHERE customer_order.customer_id = ? AND base.base_name = ?
+            LIMIT 1
+        """, (customer_id, item_name)).fetchone()
+
+        if row:
+            orderbase_id, current_qty = row
+            #if quantity > 1 decrease by 1or else delete the orderbase row
+            if current_qty > 1:
+                db.execute("UPDATE orderbase SET base_quantity = base_quantity - 1 WHERE id = ?",
+                           (orderbase_id,))
+            else:
+                db.execute("DELETE FROM customer_order WHERE orderbase_id = ?", (orderbase_id,))
+                db.execute("DELETE FROM orderbase WHERE id = ?", (orderbase_id,))
+    else:
+        #find orderside id and quantity for customer
+        row = db.execute("""
+            SELECT orderside.id, orderside.side_quantity
+            FROM customer_order
+            JOIN orderside ON customer_order.orderside_id = orderside.id
+            JOIN sides ON orderside.side_id = sides.id
+            WHERE customer_order.customer_id = ? AND sides.side_name = ?
+            LIMIT 1
+        """, (customer_id, item_name)).fetchone()
+
+        if row:
+            orderside_id, current_qty = row
+            #if quantity > 1 decrease by 1 or else delete the orderside row
+            if current_qty > 1:
+                db.execute("UPDATE orderside SET side_quantity = side_quantity - 1 WHERE id = ?",
+                           (orderside_id,))
+            else:
+                db.execute("DELETE FROM customer_order WHERE orderside_id = ?", (orderside_id,))
+                db.execute("DELETE FROM orderside WHERE id = ?", (orderside_id,))
+
+    db.commit()
+    flash("Item removed", "success")
+    return redirect('/cart')
+
+
 @app.route("/about")
 def about():
     """about page"""

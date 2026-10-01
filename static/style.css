@@ -308,3 +308,24 @@ body {
     text-decoration: none;
     font-size: large;
 }
+
+.clearcartbutton {
+    background-color: #C41D1D;
+    border: none;
+    border-radius: 10%;
+    margin-top: 5%;
+}
+
+.removebutton {
+    background-color: #C41D1D;
+    border: none;
+    border-radius: 10%; 
+}
+
+.removebutton:hover {
+    transform: scale(1.05);
+}
+
+.clearcartbutton:hover {
+    transform: scale(1.05);
+}

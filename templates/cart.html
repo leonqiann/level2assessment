@@ -4,24 +4,33 @@
 <div class="cart-container">
     <h1>Your Order Cart</h1>
 
-    {% if bases or sides %}
-        <div class="cart-list">
-            {% for name, qty in bases %}
-                <div class="cart-item">Noodle: {{ name }} x{{ qty }}</div>
-            {% endfor %}
-            {% for name, qty in sides %}
-                <div class="cart-item">Side: {{ name }} x{{ qty }}</div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p>Your cart is empty.</p>
-    {% endif %}
+{% for name, qty in bases %}
+    <div class="cart-item">
+        Noodle: {{ name }} x{{ qty }}
+        <form action="/remove_from_cart" method="post">
+            <input type="hidden" name="item_type" value="base">
+            <input type="hidden" name="item_name" value="{{ name }}">
+            <button type="submit" class="removebutton">Remove</button>
+        </form>
+    </div>
+{% endfor %}
+{% for name, qty in sides %}
+    <div class="cart-item">
+        Side: {{ name }} x{{ qty }}
+        <form action="/remove_from_cart" method="post">
+            <input type="hidden" name="item_type" value="side">
+            <input type="hidden" name="item_name" value="{{ name }}">
+            <button  type="submit" class="removebutton">Remove</button>
+        </form>
+    </div>
+{% endfor %}
 
     {% if bases or sides %}
     <form action="/clear_cart" method="post">
-        <button type="submit" class="button-class">Clear Cart</button>
+        <button  type="submit" class="clearcartbutton">Clear Cart</button>
     </form>
 {% endif %}
+
 </div>
 
 {% endblock %}
