@@ -135,7 +135,7 @@ body {
     background-color: #C41D1D;
     border: none;
     text-decoration: none;
-    border-radius: 10%;
+    border-radius: 2rem;
     padding: 3%;
 }
 .button-class:hover {
@@ -260,6 +260,7 @@ body {
     margin: 2% auto;
 }
 
+/* flash-alert class is centered with padding and rounded corners */
 .flash-alert {
     padding: 3%;
     border-radius: 4%;
@@ -267,16 +268,19 @@ body {
     font-weight: bold;
 }
 
+/* flash-error class is red with white text */
 .flash-error {
     background-color: #ff4d4d;
     color: white;
 }
 
+/* flash-success class is green with white text */
 .flash-success {
     background-color: #4CAF50;
     color: white;
 }
 
+/* about us section is centered with a margin on the right */
 .aboutus {
     text-align: center;
     margin-right: 20% ;
@@ -284,53 +288,57 @@ body {
     margin-left: 10%;
 }
 
+/* about has a margin on the left */
 .aboutus-image {
     margin-left: 5%;
 }
 
+/* contact container is centered */
 .contact-container {
     text-align: center;
 }
 
+/* next button is red with no border and rounded corners */
 .nextbutton {
     background-color: #C41D1D;
-    overflow-wrap: break-word;
-    text-align: center;
     max-width: 1fr;
     padding: 5%;
     text-align: center;
     border-radius: 0.5rem;  
     width: 100%;
-    display: flex;
-    flex-direction: column;
     height: 10%;
     margin-top: auto;
     text-decoration: none;
     font-size: large;
 }
 
+/* clear cart button is red with no border and rounded corners */
 .clearcartbutton {
     background-color: #C41D1D;
     border: none;
     border-radius: 0.5rem;
     margin-top: 0.5rem;
+    margin-bottom: 1rem;
 }
 
+/* remove button is red with no border and rounded corners */
 .removebutton {
     background-color: #C41D1D;
     border: none;
     border-radius: 0.5rem; 
-    display: inline-block;
 }
 
+/* Add hover effect for the remove button */
 .removebutton:hover {
     transform: scale(1.05);
 }
 
+/* Add hover effect for the clear cart button */
 .clearcartbutton:hover {
     transform: scale(1.05);
 }
 
+/* cart container is centered and has a yellow background */
 .cart-container {
     text-align: center;
     background-color: #FFCC00;
@@ -338,10 +346,24 @@ body {
     border-radius: 5rem;
 }
 
+/* cart items are centered and spaced out */
 .cart-item {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
     margin-top: 0.2rem;
     width: 100%;
+}
+
+/* red "back to menu" button */
+.cartbutton {
+    background-color: #C41D1D;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    padding: 0.3rem;
+}
+
+/* Add hover effect for the cart button */
+.cartbutton:hover {
+    transform: scale(1.05);
 }

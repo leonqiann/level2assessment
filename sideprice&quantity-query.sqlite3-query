@@ -1,0 +1,3 @@
+-- database: ./wokthiswayimproved.db
+
+INSERT INTO customer_order (customer_id, orderside_id) VALUES (1, 1)
