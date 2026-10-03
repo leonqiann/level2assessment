@@ -1,27 +1,32 @@
-.w3-red
-{
+/* make the w3-red class have a red background color and black text */
+.w3-red{
     background-color: #C41D1D !important;
     color: #000000 !important;
     margin-top: 0%;
 }
+
+/* make the w3-button class have a red background color and white text */
 .w3-button:hover { 
     background-color: #AE1111 !important;
 }
 
+/* make the w3-bar class have an overflow of visible */
 .w3-bar {
     overflow: visible;
 }
+
+/* make the nav class have a position of relative and a z-index of 1 */
 .nav {
     position: relative;
     z-index: 1;
 }
 
+/* make the nav font size 4rem and width 100% */
 nav {
     font-size: 4rem;
-    width: 100%;
 }
 
-
+/* make the order-now button red with rounded corners and a font size of 5rem */
 .order-now {
     background-color: #C41D1D;
     border-radius: 2rem;
@@ -31,84 +36,115 @@ nav {
     grid-row: 2;
     justify-self: center;
     align-self: center;
-    padding: 2%;
+    padding: 1.5rem;
 }
+
+/* make the order-now button a link with no text decoration */
 .order-now a {
     text-decoration: none;
 }
+
+/* Add hover effect for the order-now button */
 .order-now:hover {
     transform: scale(1.05);
 }
+
+/* header in the home page */
 .homeheader {
     text-align: center;
     grid-row: 1;
     grid-column: 1;
-    margin-top: 20%;
+    margin-top: 10rem;
 }
+
+/* make the h1 in the homeheader class have a font size of 3rem */
 .homeheader h1 {
     font-size: 3rem;
 }
+
+/* make the two-column class a grid with two columns and a grid row of 2/3 */
 .two-column {
     display: grid;
     grid-template-columns: auto auto;
     grid-row: 2/3;
 
 }
+
+/* make the three-row class a grid with three rows and a min-height of 100vh */
 .three-row {
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
 }
 
+/* make the spicyimg class float right and have a margin-top of 5% and a margin-left of 30% */
 .spicyimg {
     float: right;
-    margin-top: 5%;
-    margin-left: 30%;
+    margin-top: 4.5rem;
+    margin-left: 20rem;
 }
+
+/* make the images in the spicyimg class have 60% of the width */
 .spicyimg img {
     width: 60%;
 }
+
+/* make the footer have a grid row of 3 */
 footer {
-    font-size: 20px;
+    font-size: 1.5rem;
     grid-row: 3;
-    padding-bottom: 3%;
+    padding-bottom: 5rem;
 
 }
+
+/* make the body have a background color of #E4C443 and a min-height of 100vh */
 body {  
     background-color: #E4C443;
     min-height: 100vh;
     padding: 0;
 }
+
+/* make the site-header class have a width of 100% and box-sizing of border-box */
 .site-header {
     width: 100%;
     box-sizing: border-box;
 }
+
+/* make the phome class have a text-align of center and a font size of larger */
 .phome {
     text-align: center;
     font-size: larger;
     
 }
+
+/* make the fourth child of the two-column class have a font size of 1.5rem */
 .two-column > :nth-child(4)
  {
       font-size: 1.5rem;
 }
+
+/* make the third child of the two-column class have a font size of 3rem */
 .two-column > :nth-child(3) {
     font-size: 3rem;
 }
+
+/* five-column class is a grid with five columns and a gap of 5% */
 .five-column {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
-    margin-top: 4%;
-    margin-bottom: 4%;
-    gap: 5%;
+    grid-template-columns: repeat(auto-fit, minmax(11.25rem, 1fr));
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    gap: 5rem;
 }
 
+/* make the first child of the five-column class have a max-width of 1fr and center the text */
 .five-column > :nth-child(1) {
     overflow-wrap: break-word;
     text-align: center;
     max-width: 1fr;
 }
 
+/* card class is a yellow card with padding and centered text */
 .card {
   background-color: #FFCC00;
   padding: 5%;
@@ -119,29 +155,35 @@ body {
   flex-direction: column;
 }
 
+/* breaks words in the card p if they are too long */
 .card p {
     overflow-wrap: break-word; 
 }
 
+/* nav dropbtn has red background color*/
 .nav.dropbtn {
     background-color: #C41D1D;
 }
 
+/* button-class is a red button with no border and rounded corners */
 .button-class {
     margin: 0 auto;
-    margin-bottom: 7.5%;
+    margin-bottom: 1.5rem;
     width: 50%;
     display: block;
     background-color: #C41D1D;
     border: none;
     text-decoration: none;
     border-radius: 2rem;
-    padding: 3%;
+    padding: 1rem;
 }
+
+/* Add hover effect for the button-class */
 .button-class:hover {
     transform: scale(1.05);
 }
 
+/* three-column class is a grid with three columns and centered items */
 .three-column {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -149,10 +191,13 @@ body {
     justify-items: center;
 
 }
+
+/* make the images in the three-column class have 70% of the width */
 .three-column img {
     width: 70%;
 }
 
+/* cardorder class is a yellow card with padding and centered text */
 .cardorder {
   background-color: #FFCC00;
   padding: 5%;
@@ -162,17 +207,20 @@ body {
 
 }
 
+/* cardorder p has a small font size and breaks words if they are too long */
 .cardorder p {
     overflow-wrap: break-word; 
     font-size: small;
 }
 
+/* dropdown class is a container for the dropdown menu */
 .dropdown {
     position: relative;
     display: inline-block;
     vertical-align: middle;
 }
 
+/* dropdown-content class is hidden by default and has a red background */
 .dropdown-content{
     display: none;
     position: absolute;
@@ -180,6 +228,7 @@ body {
     overflow: hidden;
 }
 
+/* add hover effect for the dropdown content links */
 .dropdown-content a{
     display: block;
     text-decoration: none;
@@ -188,15 +237,18 @@ body {
     font-size: x-large;
 }
 
+/* add hover effect for the dropdown content links */
 .dropdown-content a:hover{
     background-color: #AE1111;
 }
 
+/* show the dropdown content when the user hovers over the dropdown or clicks on it */
 .dropdown:hover .dropdown-content,
 .dropdown:focus-within .dropdown-content {
     display: block;
 }
 
+/* dropbtn class is red with no border and a pointer cursor */
 .dropbtn {
     background-color: #C41D1D;
     border: none;
@@ -204,12 +256,14 @@ body {
     cursor: pointer;
 }
 
+/* site-header class is positioned relative with a z-index of 100 and box-sizing of border-box */
 .site-header {
     position: relative;
     z-index: 100;
     box-sizing: border-box;
 }
 
+/* card-dropdown class is a container for the dropdown menu */
 .card-dropdown {
     position: relative;
     display: inline-block;
@@ -218,6 +272,7 @@ body {
     align-self: center;
 }
 
+/* card-dropdown-content class is hidden by default and has a red background */
 .card-dropdown-content{
     display: none;
     position: absolute;
@@ -230,6 +285,7 @@ body {
     flex-direction: column;
 }
 
+/* add hover effect for the card-dropdown-content links */
 .card-dropdown-content a{
     display: block;
     text-decoration: none;
@@ -239,15 +295,18 @@ body {
     text-align: center;
 }
 
+/* add hover effect for the card-dropdown-content links */
 .card-dropdown-content a:hover{
     background-color: #AE1111;
 }
 
+/* show the dropdown content when the user hovers over the card-dropdown or clicks on it */
 .card-dropdown:hover .card-dropdown-content,
 .card-dropdown:focus-within .card-dropdown-content {
     display:flex;
 }
 
+/* card-dropbtn class is red with no border and a pointer cursor */
 .card-dropbtn {
     background-color: #C41D1D;
     border: none;
@@ -255,6 +314,7 @@ body {
     cursor: pointer;
 }
 
+/* flash-messages class is centered with a max-width of 25% and a margin of 2% auto */
 .flash-messages {
     max-width: 25%;
     margin: 2% auto;
@@ -306,7 +366,7 @@ body {
     text-align: center;
     border-radius: 0.5rem;  
     width: 100%;
-    height: 10%;
+    height: 4rem;
     margin-top: auto;
     text-decoration: none;
     font-size: large;
@@ -366,4 +426,12 @@ body {
 /* Add hover effect for the cart button */
 .cartbutton:hover {
     transform: scale(1.05);
+}
+
+.login-container {
+    text-align: center;
+    margin: 9rem;
+    padding: 5rem;
+    border-radius: 5rem;
+    background-color: #FFCC00;
 }
