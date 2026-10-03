@@ -82,7 +82,7 @@ def orderbase():
 @app.route("/orderside")
 def orderside():
     """side options for side menu"""
-    sql = "SELECT sidee_name, side_image, side_price, id FROM sides "
+    sql = "SELECT side_name, side_image, side_price, id FROM sides "
     results = query_db(sql)
     return render_template("orderside.html", results=results)
 
