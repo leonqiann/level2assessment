@@ -14,7 +14,9 @@
 {% endif %}
 {% endwith %}
 
-{% for name, qty in bases %}
+{% set cart_total = namespace(total=0) %}
+
+{% for name, qty, price in bases %}
     <div class="cart-item">
         Noodle: {{ name }} x{{ qty }}
         <form action="/remove_from_cart" method="post">
@@ -23,8 +25,9 @@
             <button type="submit" class="removebutton">Remove</button>
         </form>
     </div>
+    {% set cart_total.total = cart_total.total + (qty * price) %}
 {% endfor %}
-{% for name, qty in sides %}
+{% for name, qty, price in sides %}
     <div class="cart-item">
         Side: {{ name }} x{{ qty }}
         <form action="/remove_from_cart" method="post">
@@ -33,9 +36,10 @@
             <button  type="submit" class="removebutton">Remove</button>
         </form>
     </div>
+    {% set cart_total.total = cart_total.total + (qty * price) %}
 {% endfor %}
 
-
+<p>Total: ${{ "%.2f"|format(cart_total.total) }}</p>
 
     {% if bases or sides %}
     <form action="/clear_cart" method="post">

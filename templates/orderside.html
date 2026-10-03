@@ -7,10 +7,10 @@
 <div class="card">
     <img src="{{ sideimage[1] }}" alt="{{ sideimage[0] }}">
     <p>{{ sideimage[0] }}</p>
-    <p>${{ sideimage[2] }}</p>
+    <p>${{ "%.2f"|format(sideimage[2]) }}</p>
     <!-- add to order button and quantity selector -->
     <form action="/add_to_cart" method="post">
-        <input type="hidden" name="item_id" value="{{ sideimage[2] }}">
+        <input type="hidden" name="item_id" value="{{ sideimage[3] }}">
         <input type="hidden" name="item_type" value="side">
 
         <button type="submit" class="button-class">Add to order</button>

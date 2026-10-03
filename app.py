@@ -73,7 +73,7 @@ def order():
 @app.route("/orderbase")
 def orderbase():
     """noodle options for noodle menu"""
-    sql = "SELECT base_name, base_image, id FROM base "
+    sql = "SELECT base_name, base_image, base_price, id FROM base "
     results = query_db(sql)
     return render_template("orderbase.html", results=results)
 
@@ -82,7 +82,7 @@ def orderbase():
 @app.route("/orderside")
 def orderside():
     """side options for side menu"""
-    sql = "SELECT side_name, side_image, id FROM sides "
+    sql = "SELECT side_name, side_image, side_price, id FROM sides "
     results = query_db(sql)
     return render_template("orderside.html", results=results)
 
@@ -159,7 +159,8 @@ def cart():
     customer_id = user[0]
 
     sql_bases = """
-        SELECT base.base_name, SUM(orderbase.base_quantity) AS qty
+        SELECT base.base_name, SUM(orderbase.base_quantity) AS qty,
+        base.base_price AS price
         FROM customer_order
         JOIN orderbase ON customer_order.orderbase_id = orderbase.id
         JOIN base ON orderbase.base_id = base.id
@@ -167,7 +168,8 @@ def cart():
         GROUP BY base.base_name
     """
     sql_sides = """
-        SELECT sides.side_name, SUM(orderside.side_quantity) AS qty
+        SELECT sides.side_name, SUM(orderside.side_quantity) AS qty,
+        sides.side_price AS price
         FROM customer_order
         JOIN orderside ON customer_order.orderside_id = orderside.id
         JOIN sides ON orderside.side_id = sides.id
