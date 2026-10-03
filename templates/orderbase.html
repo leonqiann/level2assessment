@@ -7,7 +7,8 @@
 <div class="card">
     <img src="{{ baseimage[1] }}" alt="{{ baseimage[0] }}">
     <p>{{ baseimage[0] }}</p>
-
+    <p>${{ baseimage[2] }}</p>
+    <!-- add to order button and quantity selector -->
     <form action="/add_to_cart" method="post">
         <input type="hidden" name="item_id" value="{{ baseimage[2] }}">
         <input type="hidden" name="item_type" value="base">

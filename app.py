@@ -104,7 +104,7 @@ def signup():
         # Execute the INSERT statement (query_db commits automatically)
             sql = "INSERT INTO customer (username, password, address) VALUES (?, ?, ?)"
             query_db(sql, (username, hashed_password, address))
-            flash("Sign Up Successful", "success")
+            flash("Sign Up Successful, please log in.", "success")
             return redirect("/login")
     return render_template('signup.html')
 
@@ -121,12 +121,15 @@ def login():
         user = query_db(sql, (username,), one=True)
         if user:
             # 0 is username, 1 is password
+            # check the password hash against the password
             if check_password_hash(user[1], password):
                 session['user'] = user[0]
                 session['cart'] = []
                 flash("Logged in successfully", "success")
+            # if password doesnt match, flash error message
             else:
                 flash("Password incorrect", "error")
+            # if username doesnt exist, flash error message
         else:
             flash("Username does not exist", "error")
     return render_template('login.html')
@@ -134,6 +137,7 @@ def login():
 @app.route("/logout")
 def logout():
     """clear session and log out user"""
+    #clears session
     session.clear()
     return render_template("logout.html")
 
@@ -179,30 +183,36 @@ def cart():
 def add_to_cart():
     """add items to the shopping cart for the logged-in user"""
     print(request.form)
+    # has to be logged in to add to cart
     if 'user' not in session:
         flash("You must be logged in to add items to your cart", "error")
         return redirect('/login')
 
-    item_type = request.form.get("item_type")   # "base" or "side"
+    item_type = request.form.get("item_type")   # base or side
     try:
+        #turn values into integers, if can't, then flash error message & redirect order page
         item_id = int(request.form.get("item_id", ""))
         quantity = int(request.form.get("quantity", 1))
     except ValueError:
         flash("Invalid item or quantity", "error")
         return redirect('/order')
 
+    # validate item type and quantity
     if item_type not in ("base", "side") or not 1 <= quantity <= 10:
         flash("Invalid item or quantity", "error")
         return redirect('/order')
 
+    # find user id from username in this session
     user = query_db("SELECT id FROM customer WHERE username = ?",
                     (session['user'],), one=True)
+    #if not found, clear session and flash error message
     if not user:
         session.clear()
         flash("User session invalid, please log in again", "error")
         return redirect('/login')
-
+    # insert into orderbase/orderside and customer_order tables
     db = get_db()
+    # if item_type is base, insert into orderbase and customer_order tables
     if item_type == "base":
         cur = db.execute(
             "INSERT INTO orderbase (base_id, base_quantity) VALUES (?, ?)",
@@ -210,6 +220,7 @@ def add_to_cart():
         db.execute(
             "INSERT INTO customer_order (customer_id, orderbase_id) VALUES (?, ?)",
             (user[0], cur.lastrowid))
+    # if item_type is side, insert into orderside and customer_order tables
     else:
         cur = db.execute(
             "INSERT INTO orderside (side_id, side_quantity) VALUES (?, ?)",
@@ -219,12 +230,12 @@ def add_to_cart():
             (user[0], cur.lastrowid))
     db.commit()
 
-    flash(f"Added {quantity} item(s) to your cart", "success")
     return redirect(request.referrer)
 
 @app.route("/clear_cart", methods=["POST"])
 def clear_cart():
     """clear cart """
+    # has to be logged in
     if 'user' not in session:
         flash("You must be logged in to do that", "error")
         return redirect('/login')
@@ -239,8 +250,7 @@ def clear_cart():
     customer_id = user[0]
     db = get_db()
 
-    # Delete the orderbase/orderside rows this customer's orders point to,
-    # then the customer_order rows themselves.
+    # Delete the orderbase or orderside rows this customer's orders point to.
     db.execute("""
         DELETE FROM orderbase WHERE id IN (
             SELECT orderbase_id FROM customer_order
@@ -323,7 +333,7 @@ def remove_from_cart():
                 db.execute("DELETE FROM orderside WHERE id = ?", (orderside_id,))
 
     db.commit()
-    flash("Item removed", "success")
+    flash("Item(s) removed", "success")
     return redirect('/cart')
 
 
@@ -335,7 +345,7 @@ def about():
 
 @app.route("/contact")
 def contact():
-    """static contact page"""
+    """contact page"""
     return render_template("contact.html")
 
 
@@ -349,7 +359,7 @@ def baseimage(base_id):
 # error 404 handler
 @app.errorhandler(404)
 def not_found(_):
-    """Show a page when a route/resource doesn't exist"""
+    """Show a page when a route doesn't exist"""
     return render_template('404.html'), 404
 
 # error 500 handler
@@ -360,9 +370,7 @@ def internal_error(_):
 
 
 
-# =============================================================================
-# MAIN ENTRY POINT
-# =============================================================================
+
 
 if __name__ == "__main__":
     # Start development server with debugging enabled
