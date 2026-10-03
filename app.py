@@ -376,4 +376,4 @@ def internal_error(_):
 
 if __name__ == "__main__":
     # Start development server with debugging enabled
-    app.run(debug=False)
+    app.run(debug=True)

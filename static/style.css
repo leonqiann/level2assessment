@@ -434,11 +434,77 @@ body {
     background-color: #FFCC00;
 }
 
+/* auth-form-group class is a flex container with centered items and a gap */
+.auth-form-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* auth-form-group label is larger and has a fixed width */
+.auth-form-group label {
+    font-size: 1.5rem;
+    margin-right: 0.25rem;
+    width: 8rem;
+    white-space: nowrap;
+}
+
+/* auth-form-group input is padded, larger, and has rounded corners */
+.auth-form-group input {
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    border: none;
+    width: 14rem;
+}
+
+/* auth-form-button is red with no border and rounded corners */
+.auth-form-button {
+    background-color: #C41D1D;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* register button is red with no border and rounded corners */
+.registerbutton {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.2rem;
+    background-color: #C41D1D;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+/* Add hover effect for the register button */
+.registerbutton:hover {
+    transform: scale(1.05);
+}
+
+/* login-container h1 is larger and has a margin */
+.login-container h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+/* Add hover effect for the auth-form-button */
+.auth-form-button:hover {
+    transform: scale(1.05);
+}
+
+/* login form is centered and has a max-width of 50% */
 .error-container {
     text-align: center;
     margin-top: 8rem;
 }
 
+/* make the link in the error-container class have a red background color, no text decoration, rounded corners, padding, and a font size of 1.5rem */
 .error-container a {
     background-color: #C41D1D;
     text-decoration: none;
@@ -446,19 +512,22 @@ body {
     padding: 0.5rem;
     font-size: 1.5rem;
 }
-
+/* Add hover effect for the error-container link */
 .error-container a:hover {
     transform: scale(1.05);
 }
 
+/* make the h1 in the error-container class have a font size of 6rem */
 .error-container h2 {
     font-size: 4rem;
 }
 
+/* make the p in the error-container class have a font size of 2rem */
 .error-container h1 {
     font-size: 6rem;
 }
 
+/* make the p in the error-container class have a font size of 2rem */
 .error-container p {
     font-size: 2rem;
 }
