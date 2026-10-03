@@ -17,7 +17,7 @@
 }
 
 nav {
-    font-size: 50px;
+    font-size: 4rem;
     width: 100%;
 }
 
@@ -25,7 +25,7 @@ nav {
 .order-now {
     background-color: #C41D1D;
     border-radius: 20%;
-    font-size: 30px;
+    font-size: 5rem;
     text-align: center;
     grid-column: 1;
     grid-row: 2;
@@ -46,7 +46,7 @@ nav {
     margin-top: 20%;
 }
 .homeheader h1 {
-    font-size: 55px;
+    font-size: 3rem;
 }
 .two-column {
     display: grid;
@@ -90,10 +90,10 @@ body {
 }
 .two-column > :nth-child(4)
  {
-      font-size: 25px;
+      font-size: 1.5rem;
 }
 .two-column > :nth-child(3) {
-    font-size: 45px;
+    font-size: 3rem;
 }
 .five-column {
     display: grid;
@@ -164,7 +164,7 @@ body {
 
 .cardorder p {
     overflow-wrap: break-word; 
-    font-size: 30px;
+    font-size: small;
 }
 
 .dropdown {

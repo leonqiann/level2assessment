@@ -1,0 +1,3 @@
+-- database: ./wokthiswayimproved.db
+
+UPDATE customer SET username = 'somethingelse' WHERE username = 'hihihi';

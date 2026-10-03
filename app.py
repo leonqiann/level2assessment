@@ -135,7 +135,7 @@ def login():
         user = query_db(sql, (username,), one=True)
         
         if user:
-            # (0 is username, 1 is password)
+            # 0 is username, 1 is password
             if check_password_hash(user[1], password):
                 session['user'] = user[0]
                 session['cart'] = []
@@ -159,6 +159,7 @@ def logout():
 @app.route("/cart")
 def cart():
     """show cart for user if logged in"""
+    #if user isnt logged in redirect to login page
     if 'user' not in session:
         flash("You must be logged in to view your cart", "error")
         return redirect('/login')
