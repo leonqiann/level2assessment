@@ -47,6 +47,12 @@
     </form>
 {% endif %}
 
+{% if bases or sides%}
+    <form action="/checkout" method="post">
+        <button type="submit" class="checkoutbutton">Process Order</button>
+    </form>
+{% endif %}
+
 <a href="/orderbase" class="cartbutton">Back to menu</a>
 </div>
 

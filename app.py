@@ -77,15 +77,12 @@ def orderbase():
     results = query_db(sql)
     return render_template("orderbase.html", results=results)
 
-
-
 @app.route("/orderside")
 def orderside():
     """side options for side menu"""
     sql = "SELECT side_name, side_image, side_price, id FROM sides "
     results = query_db(sql)
     return render_template("orderside.html", results=results)
-
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
@@ -107,7 +104,6 @@ def signup():
             flash("Sign Up Successful, please log in.", "success")
             return redirect("/login")
     return render_template('signup.html')
-
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -349,6 +345,32 @@ def about():
 def contact():
     """contact page"""
     return render_template("contact.html")
+
+@app.route("/checkout", methods=["POST"])
+def checkout():
+    """checkout page"""
+    if 'user' in session:
+        user = query_db("SELECT id FROM customer WHERE username = ?",
+                        (session['user'],), one=True)
+        if user:
+            customer_id = user[0]
+            db = get_db()
+
+            db.execute("""
+                DELETE FROM orderbase WHERE id IN (
+                    SELECT orderbase_id FROM customer_order
+                    WHERE customer_id = ? AND orderbase_id IS NOT NULL
+                )
+            """, (customer_id,))
+            db.execute("""
+                DELETE FROM orderside WHERE id IN (
+                    SELECT orderside_id FROM customer_order
+                    WHERE customer_id = ? AND orderside_id IS NOT NULL
+                )
+            """, (customer_id,))
+            db.execute("DELETE FROM customer_order WHERE customer_id = ?", (customer_id,))
+            db.commit()
+    return render_template("checkout.html")
 
 
 @app.route("/base/<int:base_id>")
