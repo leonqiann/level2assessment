@@ -24,7 +24,7 @@ nav {
 
 .order-now {
     background-color: #C41D1D;
-    border-radius: 20%;
+    border-radius: 2rem;
     font-size: 5rem;
     text-align: center;
     grid-column: 1;
@@ -113,7 +113,7 @@ body {
   background-color: #FFCC00;
   padding: 5%;
   text-align: center;
-  border-radius: 5%;  
+  border-radius: 1rem;  
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -299,7 +299,7 @@ body {
     max-width: 1fr;
     padding: 5%;
     text-align: center;
-    border-radius: 5%;  
+    border-radius: 0.5rem;  
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -312,14 +312,15 @@ body {
 .clearcartbutton {
     background-color: #C41D1D;
     border: none;
-    border-radius: 10%;
-    margin-top: 5%;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 .removebutton {
     background-color: #C41D1D;
     border: none;
-    border-radius: 10%; 
+    border-radius: 0.5rem; 
+    display: inline-block;
 }
 
 .removebutton:hover {
@@ -328,4 +329,19 @@ body {
 
 .clearcartbutton:hover {
     transform: scale(1.05);
+}
+
+.cart-container {
+    text-align: center;
+    background-color: #FFCC00;
+    margin: 3%;
+    border-radius: 5rem;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 0.2rem;
+    width: 100%;
 }
