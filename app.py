@@ -82,7 +82,7 @@ def orderbase():
 @app.route("/orderside")
 def orderside():
     """side options for side menu"""
-    sql = "SELECT side_name, side_image, side_price, id FROM sides "
+    sql = "SELECT sidee_name, side_image, side_price, id FROM sides "
     results = query_db(sql)
     return render_template("orderside.html", results=results)
 
@@ -376,4 +376,4 @@ def internal_error(_):
 
 if __name__ == "__main__":
     # Start development server with debugging enabled
-    app.run(debug=True)
+    app.run(debug=False)

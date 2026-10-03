@@ -65,9 +65,7 @@ nav {
 /* make the two-column class a grid with two columns and a grid row of 2/3 */
 .two-column {
     display: grid;
-    grid-template-columns: auto auto;
-    grid-row: 2/3;
-
+    grid-template-columns: repeat(auto-fill, minmax(43rem, 1fr));
 }
 
 /* make the three-row class a grid with three rows and a min-height of 100vh */
@@ -79,14 +77,13 @@ nav {
 
 /* make the spicyimg class float right and have a margin-top of 5% and a margin-left of 30% */
 .spicyimg {
-    float: right;
     margin-top: 4.5rem;
-    margin-left: 20rem;
 }
 
 /* make the images in the spicyimg class have 60% of the width */
 .spicyimg img {
-    width: 60%;
+    width: 30rem;
+    margin-left: 30%;
 }
 
 /* make the footer have a grid row of 3 */
@@ -428,10 +425,40 @@ body {
     transform: scale(1.05);
 }
 
+/* login container is centered and has a yellow background */
 .login-container {
     text-align: center;
     margin: 9rem;
     padding: 5rem;
     border-radius: 5rem;
     background-color: #FFCC00;
+}
+
+.error-container {
+    text-align: center;
+    margin-top: 8rem;
+}
+
+.error-container a {
+    background-color: #C41D1D;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.error-container a:hover {
+    transform: scale(1.05);
+}
+
+.error-container h2 {
+    font-size: 4rem;
+}
+
+.error-container h1 {
+    font-size: 6rem;
+}
+
+.error-container p {
+    font-size: 2rem;
 }
