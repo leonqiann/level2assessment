@@ -46,7 +46,7 @@ def query_db(query, args=(), one=False):
 # ROUTE HANDLERS
 # =============================================================================
 
-
+#route forhome page 
 @app.route("/")
 def home():
     """Fetch customer order relational data for home view"""
@@ -56,7 +56,7 @@ def home():
     results = query_db(sql)
     return render_template("home.html", results=results)
 
-
+# This page is not in use anymore as I replaced it with a dropdown menu in the navigation bar
 @app.route("/order")
 def order():
     """preview images for bases, toppings, and sides"""
@@ -69,7 +69,7 @@ def order():
         "order.html", bases=bases, sides=sides
     )
 
-
+#page for ordering the noodles
 @app.route("/orderbase")
 def orderbase():
     """noodle options for noodle menu"""
@@ -77,6 +77,7 @@ def orderbase():
     results = query_db(sql)
     return render_template("orderbase.html", results=results)
 
+#page for ordering the sides
 @app.route("/orderside")
 def orderside():
     """side options for side menu"""
@@ -84,6 +85,7 @@ def orderside():
     results = query_db(sql)
     return render_template("orderside.html", results=results)
 
+#route for signing up
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     '''Route for signup page'''
@@ -105,6 +107,7 @@ def signup():
             return redirect("/login")
     return render_template('signup.html')
 
+#page for logging in
 @app.route('/login', methods=["GET", "POST"])
 def login():
     '''Route for login Page'''
@@ -130,6 +133,7 @@ def login():
             flash("Username does not exist", "error")
     return render_template('login.html')
 
+#route for logging out
 @app.route("/logout")
 def logout():
     """clear session and log out user"""
@@ -137,6 +141,7 @@ def logout():
     session.clear()
     return render_template("logout.html")
 
+#cart page
 @app.route("/cart")
 def cart():
     """show cart for user if logged in"""
@@ -177,6 +182,7 @@ def cart():
 
     return render_template("cart.html", bases=bases, sides=sides)
 
+#route for adding items to cart
 @app.route("/add_to_cart", methods=["POST"])
 def add_to_cart():
     """add items to the shopping cart for the logged-in user"""
@@ -230,6 +236,7 @@ def add_to_cart():
 
     return redirect(request.referrer)
 
+#route for clearing cart
 @app.route("/clear_cart", methods=["POST"])
 def clear_cart():
     """clear cart """
@@ -267,6 +274,7 @@ def clear_cart():
     flash("Cart cleared", "success")
     return redirect('/cart')
 
+#route for removing items from cart
 @app.route("/remove_from_cart", methods=["POST"])
 def remove_from_cart():
     """remove one item from cart"""
@@ -334,18 +342,19 @@ def remove_from_cart():
     flash("Item(s) removed", "success")
     return redirect('/cart')
 
-
+#about us page
 @app.route("/about")
 def about():
     """about page"""
     return render_template("about.html")
 
-
+#This page is no longer in use as I replaced it with a phone number in the footer
 @app.route("/contact")
 def contact():
     """contact page"""
     return render_template("contact.html")
 
+#checkout page
 @app.route("/checkout", methods=["POST"])
 def checkout():
     """checkout page"""
@@ -372,7 +381,7 @@ def checkout():
             db.commit()
     return render_template("checkout.html")
 
-
+#This page is not used, only used it for testing
 @app.route("/base/<int:base_id>")
 def baseimage(base_id):
     """Fetch single base image by ID parameter"""
