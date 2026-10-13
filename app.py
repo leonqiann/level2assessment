@@ -46,7 +46,7 @@ def query_db(query, args=(), one=False):
 # ROUTE HANDLERS
 # =============================================================================
 
-#route forhome page 
+#route forhome page
 @app.route("/")
 def home():
     """Fetch customer order relational data for home view"""

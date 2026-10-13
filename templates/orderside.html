@@ -2,7 +2,7 @@
 {% extends "layout.html" %}
 {% block body %}
 <!-- five column grid for layouit of the menu-->
-<div class="five-column">
+<div class="autofit-column">
     {% for sideimage in results %}
 <div class="card">
     <img src="{{ sideimage[1] }}" alt="{{ sideimage[0] }}">
