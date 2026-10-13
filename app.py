@@ -1,4 +1,4 @@
-"""Wok This Way - Flash app for noodle ordering """
+"""Wok This Way - Flask app for noodle ordering """
 import sqlite3
 from flask import Flask, g, render_template, session, flash, redirect, request
 from werkzeug.security import generate_password_hash, check_password_hash

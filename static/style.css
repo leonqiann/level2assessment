@@ -69,6 +69,7 @@ nav {
 }
 
 /* make the three-row class a grid with three rows and a min-height of 100vh */
+/* page is unused */
 .three-row {
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -195,6 +196,7 @@ body {
 }
 
 /* cardorder class is a yellow card with padding and centered text */
+/* page is unused */
 .cardorder {
   background-color: #FFCC00;
   padding: 5%;
@@ -205,6 +207,7 @@ body {
 }
 
 /* cardorder p has a small font size and breaks words if they are too long */
+/* page is unused */
 .cardorder p {
     overflow-wrap: break-word; 
     font-size: small;
@@ -261,6 +264,7 @@ body {
 }
 
 /* card-dropdown class is a container for the dropdown menu */
+/* this is unused as html code for this class was deleted*/
 .card-dropdown {
     position: relative;
     display: inline-block;
@@ -270,6 +274,7 @@ body {
 }
 
 /* card-dropdown-content class is hidden by default and has a red background */
+/* this is unused as html code for this class was deleted*/
 .card-dropdown-content{
     display: none;
     position: absolute;
@@ -283,6 +288,7 @@ body {
 }
 
 /* add hover effect for the card-dropdown-content links */
+/* this is unused as html code for this class was deleted*/
 .card-dropdown-content a{
     display: block;
     text-decoration: none;
@@ -293,17 +299,20 @@ body {
 }
 
 /* add hover effect for the card-dropdown-content links */
+/* this is unused as html code for this class was deleted*/
 .card-dropdown-content a:hover{
     background-color: #AE1111;
 }
 
 /* show the dropdown content when the user hovers over the card-dropdown or clicks on it */
+/* this is unused as html code for this class was deleted*/
 .card-dropdown:hover .card-dropdown-content,
 .card-dropdown:focus-within .card-dropdown-content {
     display:flex;
 }
 
 /* card-dropbtn class is red with no border and a pointer cursor */
+/* this is unused as html code for this class was deleted*/
 .card-dropbtn {
     background-color: #C41D1D;
     border: none;
@@ -351,6 +360,7 @@ body {
 }
 
 /* contact container is centered */
+/* this page is unused*/
 .contact-container {
     text-align: center;
 }
