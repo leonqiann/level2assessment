@@ -68,14 +68,6 @@ nav {
     grid-template-columns: repeat(auto-fill, minmax(43rem, 1fr));
 }
 
-/* make the three-row class a grid with three rows and a min-height of 100vh */
-/* page is unused */
-.three-row {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    min-height: 100vh;
-}
-
 /* spicyimg clas has margin-top of 5rem*/
 .spicyimg {
     margin-top: 2rem;
@@ -195,24 +187,6 @@ body {
     width: 70%;
 }
 
-/* cardorder class is a yellow card with padding and centered text */
-/* page is unused */
-.cardorder {
-  background-color: #FFCC00;
-  padding: 5%;
-  text-align: center;
-  width: 50%;
-  height: 40%;
-
-}
-
-/* cardorder p has a small font size and breaks words if they are too long */
-/* page is unused */
-.cardorder p {
-    overflow-wrap: break-word; 
-    font-size: small;
-}
-
 /* dropdown class is a container for the dropdown menu */
 .dropdown {
     position: relative;
@@ -263,63 +237,6 @@ body {
     box-sizing: border-box;
 }
 
-/* card-dropdown class is a container for the dropdown menu */
-/* this is unused as html code for this class was deleted*/
-.card-dropdown {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    width: max-content;
-    align-self: center;
-}
-
-/* card-dropdown-content class is hidden by default and has a red background */
-/* this is unused as html code for this class was deleted*/
-.card-dropdown-content{
-    display: none;
-    position: absolute;
-    background-color:#C41D1D;
-    overflow: hidden;
-    top: 100%;
-    left: 13%;
-    width: 75%;
-    min-height: 250%;
-    flex-direction: column;
-}
-
-/* add hover effect for the card-dropdown-content links */
-/* this is unused as html code for this class was deleted*/
-.card-dropdown-content a{
-    display: block;
-    text-decoration: none;
-    background-color: #C41D1D;
-    width: 100%;
-    font-size: x-large;
-    text-align: center;
-}
-
-/* add hover effect for the card-dropdown-content links */
-/* this is unused as html code for this class was deleted*/
-.card-dropdown-content a:hover{
-    background-color: #AE1111;
-}
-
-/* show the dropdown content when the user hovers over the card-dropdown or clicks on it */
-/* this is unused as html code for this class was deleted*/
-.card-dropdown:hover .card-dropdown-content,
-.card-dropdown:focus-within .card-dropdown-content {
-    display:flex;
-}
-
-/* card-dropbtn class is red with no border and a pointer cursor */
-/* this is unused as html code for this class was deleted*/
-.card-dropbtn {
-    background-color: #C41D1D;
-    border: none;
-    padding: none;
-    cursor: pointer;
-}
-
 /* flash-messages class is centered with a max-width of 25% and a margin of 2% auto */
 .flash-messages {
     max-width: 25%;
@@ -357,12 +274,6 @@ body {
 /* about has a margin on the left */
 .aboutus-image {
     margin-left: 5%;
-}
-
-/* contact container is centered */
-/* this page is unused*/
-.contact-container {
-    text-align: center;
 }
 
 /* make the next and cart button in the bottom right corner*/

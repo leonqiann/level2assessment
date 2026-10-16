@@ -56,19 +56,6 @@ def home():
     results = query_db(sql)
     return render_template("home.html", results=results)
 
-# This page is not in use anymore as I replaced it with a dropdown menu in the navigation bar
-@app.route("/order")
-def order():
-    """preview images for bases, toppings, and sides"""
-    sql = "select base_image from base"
-    bases = query_db(sql)
-    sql = "select side_image from sides"
-    sides = query_db(sql)
-
-    return render_template(
-        "order.html", bases=bases, sides=sides
-    )
-
 #page for ordering the noodles
 @app.route("/orderbase")
 def orderbase():
@@ -347,12 +334,6 @@ def remove_from_cart():
 def about():
     """about page"""
     return render_template("about.html")
-
-#This page is no longer in use as I replaced it with a phone number in the footer
-@app.route("/contact")
-def contact():
-    """contact page"""
-    return render_template("contact.html")
 
 #checkout page
 @app.route("/checkout", methods=["POST"])
